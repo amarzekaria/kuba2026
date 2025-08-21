@@ -1,5 +1,16 @@
 {
+  "name": "kuba2026",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
+    "next": "14.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.540.0"
   }
