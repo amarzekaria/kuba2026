@@ -180,7 +180,7 @@ useEffect(() => {
               </svg>
             </div>
             <div>
-              <p className="text-[11px] uppercase tracking-widest text-amber-300/90">Harari Sport & Cultural Festival</p>
+              <p className="text-[11px] uppercase tracking-widest text-amber-300/90">28th Harari Sport & Cultural Festival</p>
               <p className="font-bold">KUBA 2026 • Memphis</p>
             </div>
           </a>
@@ -393,7 +393,7 @@ useEffect(() => {
               key: "day3",
               items: [
                 { time: "2:00 PM - 9:30 PM", title: "Harari Cultural Day", icon: HeartHandshake },
-                { time: "TBA", title: "Nasheed Night", icon: Users },
+                { time: "TBA", title: " Mawlud", icon: Users },
               ],
             },
             {
@@ -454,7 +454,7 @@ useEffect(() => {
             <p className="text-white/90 leading-relaxed">
               KUBA (the Harari Sport & Cultural Festival) is an annual gathering of the global Harari community featuring sports
               tournaments, cultural showcases, music, fashion, food, and family-friendly programming. It celebrates Harari heritage
-              and unity while welcoming friends and neighbors from all backgrounds. Inshallah, Memphis will proudly host KUBA from
+              and unity while welcoming friends and neighbors from all backgrounds. Inshallah, Memphis will proudly host the 28th KUBA from
               June 29 – July 5, 2026.
             </p>
             <div className="mt-6 grid sm:grid-cols-2 gap-3">
@@ -539,7 +539,7 @@ useEffect(() => {
 
           <Card className="rounded-2xl bg-emerald-900/30 border-white/10">
             <CardHeader>
-              <CardTitle>Map (placeholder)</CardTitle>
+              <CardTitle>Map</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="aspect-video w-full rounded-xl bg-emerald-950/60 grid place-content-center text-white/80">
@@ -552,19 +552,25 @@ useEffect(() => {
         {/* FAQ */}
         <div className="mt-10">
           <h3 className="text-2xl font-extrabold mb-4">FAQ</h3>
-          <Accordion type="single" collapsible className="bg-emerald-900/30 rounded-2xl border border-white/10">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>Is this event open to everyone?</AccordionTrigger>
-              <AccordionContent>Yes. While KUBA celebrates Harari heritage, all respectful attendees are welcome.</AccordionContent>
-            </AccordionItem>
+         <Accordion type="single" collapsible className="bg-emerald-900/30 rounded-2xl border border-white/10">
+  <AccordionItem value="item-1">
+    <AccordionTrigger className="px-6 py-4">
+      Is this event open to everyone?
+    </AccordionTrigger>
+    <AccordionContent className="px-6 pt-2 pb-4">
+      Yes. While KUBA celebrates Harari heritage, all respectful attendees are welcome.
+    </AccordionContent>
+  </AccordionItem>
 
-            <AccordionItem value="item-3">
-              <AccordionTrigger>Are the schedule items final?</AccordionTrigger>
-              <AccordionContent>
-                No. The schedule here is a preview; final times and locations will be announced closer to festival week.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+  <AccordionItem value="item-3">
+    <AccordionTrigger className="px-6 py-4">
+      Are the schedule items final?
+    </AccordionTrigger>
+    <AccordionContent className="px-6 pt-2 pb-4">
+      No. The schedule here is a preview; final times and locations will be announced closer to festival week.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
         </div>
       </section>
 
@@ -575,8 +581,8 @@ useEffect(() => {
             <h2 className="text-3xl font-extrabold mb-2">Contact</h2>
             <p className="text-white/90">
               For inquiries, email us directly at{" "}
-              <a href="mailto:contact@kuba2026memphis.org" className="text-amber-300 underline">
-                contact@kuba2026memphis.org
+              <a href="mailto:contact@kuba2026.org" className="text-amber-300 underline">
+                contact@kuba2026.org
               </a>
               .
             </p>
