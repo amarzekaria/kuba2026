@@ -16,11 +16,9 @@ import {
   X,
   Clock,
   Users,
-  Ticket,
-  ShoppingBag,
+  UtensilsCrossed,
   HeartHandshake,
   Baby,
-  UtensilsCrossed,
 } from "lucide-react";
 
 /**
@@ -45,20 +43,40 @@ function useCountdown(targetDate: Date) {
   return { days, hours, minutes, seconds };
 }
 
-const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick?: () => void }) => (
-  <a
-    href={href}
-    onClick={onClick}
-    className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition"
-  >
-    {children}
-  </a>
-);
+/* ===========
+   NavLink that scrolls to in-page sections WITHOUT putting #hash in the URL.
+   You can still pass an absolute/relative href and it will behave normally.
+   =========== */
+type NavLinkProps = {
+  href: string; // "#section" or normal URL
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void; // optional extra callback (e.g., close mobile drawer)
+};
+
+const NavLink = ({ href, children, className, onClick }: NavLinkProps) => {
+  const isHash = href.startsWith("#");
+  const handle = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isHash) {
+      onClick?.();
+      return;
+    }
+    e.preventDefault();
+    const id = href.slice(1);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    // keep URL clean (remove any #…)
+    history.replaceState(null, "", location.pathname + location.search);
+    onClick?.();
+  };
+  return (
+    <a href={isHash ? "/" : href} onClick={handle} className={className}>
+      {children}
+    </a>
+  );
+};
 
 /* =========================
    Background Photo Album
-   (auto-play, arrows, pauses on click, resumes after)
-   Respects prefers-reduced-motion to aid accessibility.
    ========================= */
 function BackgroundAlbum({
   images,
@@ -107,11 +125,7 @@ function BackgroundAlbum({
         <div
           key={src + i}
           className={`absolute inset-0 transition-opacity duration-700 ${i === idx ? "opacity-100" : "opacity-0"}`}
-          style={{
-            backgroundImage: `url(${src})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          style={{ backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center" }}
           aria-hidden={i !== idx}
         />
       ))}
@@ -143,7 +157,7 @@ export default function KubaMemphisSite() {
   const [open, setOpen] = useState(false);
   const { days, hours, minutes, seconds } = useCountdown(COUNTDOWN_TARGET);
 
-  // Smooth anchor scrolling
+  // Smooth anchor scrolling + restore position handling
   useEffect(() => {
     const prev = document.documentElement.style.scrollBehavior;
     document.documentElement.style.scrollBehavior = "smooth";
@@ -151,12 +165,19 @@ export default function KubaMemphisSite() {
       document.documentElement.style.scrollBehavior = prev;
     };
   }, []);
-useEffect(() => {
-  if ("scrollRestoration" in window.history) {
-    window.history.scrollRestoration = "manual";
-  }
-  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-}, []);
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    // if a hash exists (e.g., /#about), scroll there once and then clean URL
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      document.getElementById(id)?.scrollIntoView({ behavior: "auto", block: "start" });
+      history.replaceState(null, "", location.pathname + location.search);
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+  }, []);
 
   const stats = useMemo(
     () => [
@@ -172,7 +193,8 @@ useEffect(() => {
       {/* Top Bar */}
       <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-emerald-950/60 border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-3">
+          {/* Logo now uses NavLink so it scrolls to #home without showing a hash */}
+          <NavLink href="#home" className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-2xl bg-white/10 grid place-content-center">
               {/* simple mark */}
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
@@ -183,19 +205,27 @@ useEffect(() => {
               <p className="text-[11px] uppercase tracking-widest text-amber-300/90">28th Harari Sport & Cultural Festival</p>
               <p className="font-bold">KUBA 2026 • Memphis</p>
             </div>
-          </a>
+          </NavLink>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6">
-            <NavLink href="#schedule">Schedule</NavLink>
-            <NavLink href="#about">About</NavLink>
-            <NavLink href="#travel">Travel</NavLink>
-            <NavLink href="#contact">Contact</NavLink>
-            <a href="#contact" className="hidden lg:inline-flex">
-              <Button className="bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-amber-400 rounded-2xl">
-                Get Updates
-              </Button>
-            </a>
+            <NavLink href="#schedule" className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition">
+              Schedule
+            </NavLink>
+            <NavLink href="#about" className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition">
+              About
+            </NavLink>
+            <NavLink href="#travel" className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition">
+              Travel
+            </NavLink>
+            <NavLink href="#contact" className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition">
+              Contact
+            </NavLink>
+
+            {/* Get Updates button with NavLink as child (no hash in URL) */}
+            <Button className="bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-amber-400 rounded-2xl hidden lg:inline-flex" asChild>
+              <NavLink href="#contact">Get Updates</NavLink>
+            </Button>
           </nav>
 
           {/* Mobile toggle */}
@@ -230,7 +260,12 @@ useEffect(() => {
                 ["#travel", "Travel"],
                 ["#contact", "Contact"],
               ].map(([href, label]) => (
-                <NavLink key={href} href={href} onClick={() => setOpen(false)}>
+                <NavLink
+                  key={href}
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  className="text-sm font-semibold text-white/90 hover:text-white transition"
+                >
                   {label}
                 </NavLink>
               ))}
@@ -238,7 +273,9 @@ useEffect(() => {
             <Separator className="my-6" />
             <div className="flex gap-3">
               <Button asChild className="rounded-2xl w-full bg-emerald-600 hover:bg-emerald-700">
-                <a href="#contact">Get Updates</a>
+                <NavLink href="#contact" onClick={() => setOpen(false)}>
+                  Get Updates
+                </NavLink>
               </Button>
             </div>
           </div>
@@ -246,8 +283,7 @@ useEffect(() => {
       )}
 
       {/* Hero */}
-      <section id="home" className="relative overflow-hidden  min-h-[85vh] md:min-h-screen isolation-isolate">
-        {/* Background album (swap with your images in /public/album) */}
+      <section id="home" className="relative overflow-hidden min-h-[85vh] md:min-h-screen isolation-isolate">
         <BackgroundAlbum
           images={[
             "/album/hscf_97.jpg",
@@ -257,13 +293,12 @@ useEffect(() => {
             "/album/wash_team.jpg",
             "/album/BirtukanGrad-702.jpg",
             "/album/image_3.jpg",
-
           ]}
           interval={5000}
           resumeAfter={8000}
         />
 
-        {/* Content on a readable panel so photos never reduce contrast */}
+        {/* Content */}
         <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 items-stretch gap-10">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -291,26 +326,22 @@ useEffect(() => {
               </span>
             </div>
             <div className="mt-8 flex gap-3">
-              <Button className="rounded-2xl bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-amber-400">
-                <a href="#contact">Get Notified</a>
+              {/* Buttons use NavLink asChild so the URL stays clean */}
+              <Button className="rounded-2xl bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-amber-400" asChild>
+                <NavLink href="#contact">Get Notified</NavLink>
               </Button>
               <Button
                 asChild
                 variant="outline"
                 className="rounded-2xl border-emerald-400/40 text-emerald-200 hover:bg-emerald-800/50 hover:text-white focus-visible:ring-2 focus-visible:ring-amber-400"
               >
-                <a href="#about">Learn More</a>
+                <NavLink href="#about">Learn More</NavLink>
               </Button>
             </div>
           </motion.div>
 
-          {/* Countdown panel – centered and on glass so photos never affect readability */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col items-center"
-          >
+          {/* Countdown panel */}
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="flex flex-col items-center">
             <Card className="rounded-2xl bg-black/40 backdrop-blur-md border-white/10 mx-auto">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -338,10 +369,7 @@ useEffect(() => {
             {/* Quick stats */}
             <div className="mt-6 flex justify-center gap-3 flex-wrap">
               {stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-4 text-center w-40"
-                >
+                <div key={s.label} className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-4 text-center w-40">
                   <p className="text-xl font-bold text-amber-300">{s.value}</p>
                   <p className="text-sm text-white/85">{s.label}</p>
                 </div>
@@ -357,9 +385,7 @@ useEffect(() => {
           <CalendarDays className="h-6 w-6 text-amber-300" />
           <h2 className="text-3xl font-extrabold">Schedule (COMING SOON)</h2>
         </div>
-        <p className="text-white/90 mb-6">
-          This is a sample week outline based on Dallas Kuba 2025. Final schedule TBA.
-        </p>
+        <p className="text-white/90 mb-6">This is a sample week outline based on Dallas Kuba 2025. Final schedule TBA.</p>
 
         <Tabs defaultValue="day1" className="w-full">
           <TabsList className="w-full grid grid-cols-7 gap-2 bg-white rounded-lg p-0 mt-3">
@@ -423,13 +449,9 @@ useEffect(() => {
             },
           ].map(({ key, items }) => (
             <TabsContent key={key} value={key} className="mt-6">
-              {/* Centered cards directly under the white tab bar */}
               <div className="flex flex-wrap justify-center gap-6 mx-auto max-w-6xl">
                 {items.map(({ time, title, icon: Icon }) => (
-                  <Card
-                    key={title}
-                    className="rounded-2xl bg-emerald-900/30 border-white/10 w-full sm:w-[28rem]"
-                  >
+                  <Card key={title} className="rounded-2xl bg-emerald-900/30 border-white/10 w-full sm:w-[28rem]">
                     <CardHeader className="pb-2">
                       <CardTitle className="text-base flex items-center gap-2">
                         <Icon className="h-4 w-4 text-amber-300" /> {title}
@@ -552,25 +574,21 @@ useEffect(() => {
         {/* FAQ */}
         <div className="mt-10">
           <h3 className="text-2xl font-extrabold mb-4">FAQ</h3>
-         <Accordion type="single" collapsible className="bg-emerald-900/30 rounded-2xl border border-white/10">
-  <AccordionItem value="item-1">
-    <AccordionTrigger className="px-6 py-4">
-      Is this event open to everyone?
-    </AccordionTrigger>
-    <AccordionContent className="px-6 pt-2 pb-4">
-      Yes. While KUBA celebrates Harari heritage, all respectful attendees are welcome.
-    </AccordionContent>
-  </AccordionItem>
+          <Accordion type="single" collapsible className="bg-emerald-900/30 rounded-2xl border border-white/10">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="px-6 py-4">Is this event open to everyone?</AccordionTrigger>
+              <AccordionContent className="px-6 pt-2 pb-4">
+                Yes. While KUBA celebrates Harari heritage, all respectful attendees are welcome.
+              </AccordionContent>
+            </AccordionItem>
 
-  <AccordionItem value="item-3">
-    <AccordionTrigger className="px-6 py-4">
-      Are the schedule items final?
-    </AccordionTrigger>
-    <AccordionContent className="px-6 pt-2 pb-4">
-      No. The schedule here is a preview; final times and locations will be announced closer to festival week.
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
+            <AccordionItem value="item-3">
+              <AccordionTrigger className="px-6 py-4">Are the schedule items final?</AccordionTrigger>
+              <AccordionContent className="px-6 pt-2 pb-4">
+                No. The schedule here is a preview; final times and locations will be announced closer to festival week.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
 
@@ -623,9 +641,21 @@ useEffect(() => {
           <div>
             <p className="font-semibold">Quick Links</p>
             <ul className="mt-2 grid gap-1">
-              <li><a href="#schedule" className="hover:underline">Schedule</a></li>
-              <li><a href="#travel" className="hover:underline">Travel</a></li>
-              <li><a href="#contact" className="hover:underline">Contact</a></li>
+              <li>
+                <NavLink href="#schedule" className="hover:underline">
+                  Schedule
+                </NavLink>
+              </li>
+              <li>
+                <NavLink href="#travel" className="hover:underline">
+                  Travel
+                </NavLink>
+              </li>
+              <li>
+                <NavLink href="#contact" className="hover:underline">
+                  Contact
+                </NavLink>
+              </li>
             </ul>
           </div>
           <div>
