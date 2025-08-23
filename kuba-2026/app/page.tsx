@@ -622,7 +622,7 @@ export default function KubaMemphisSite() {
                 asChild
                 className="rounded-2xl border-white/20 bg-white text-black hover:bg-white/90 focus-visible:ring-2 focus-visible:ring-amber-400"
               >
-                <a href="#">
+                <a href="https://www.facebook.com/profile.php?id=61574823466873" target="_blank" rel="noopener noreferrer">
                   <Facebook className="h-4 w-4 mr-2 text-black" /> Facebook
                 </a>
               </Button>
