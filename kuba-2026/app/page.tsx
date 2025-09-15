@@ -546,14 +546,14 @@ export default function KubaMemphisSite() {
                 <strong>Hotels:</strong> TBA
               </p>
               <p>
-                <strong>Halal Food &amp; Coffee:</strong> For halal food & dessert options, please visit{" "}
+                <strong>Halal Food &amp; Coffee:</strong> For halal food & dessert options,{" "}
                 <a
-                  href="https://www.memphishalal.com"
+                  href="https://www.google.com/maps/d/u/0/viewer?mid=1jIl3kd9BTMa3HDpAfoI_n_eGs5cqesTQ&ll=35.14770656054214%2C-89.85940621849579&z=11"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-amber-300 underline hover:text-amber-200"
                 >
-                  memphishalal.com
+                  Click Here
                 </a>
               </p>
             </CardContent>
