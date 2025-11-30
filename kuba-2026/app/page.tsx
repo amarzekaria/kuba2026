@@ -9,6 +9,10 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
   CalendarDays,
+  PartyPopper,
+  Goal,
+  DribbbleIcon,
+  Star,
   MapPin,
   Instagram,
   Facebook,
@@ -17,14 +21,37 @@ import {
   Clock,
   Users,
   UtensilsCrossed,
+  Drum,
   HeartHandshake,
   Baby,
+  Dribbble,
+  BriefcaseBusiness,
+  Footprints,
 } from "lucide-react";
 
 /**
  * KUBA 2026 — Harari Sport & Cultural Festival (Memphis)
  * Harari color palette: deep green primary, gold accent, high-contrast neutrals.
  */
+
+function getFestivalDay(now: Date) {
+  const start = new Date("2026-06-29T00:00:00-05:00");
+  const end = new Date("2026-07-06T00:00:00-05:00");
+
+  if (now < start) return null;
+  if (now >= end) return null;
+
+  const diff = now.getTime() - start.getTime();
+  return Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
+}
+
+
+function isFestivalLive(now: Date) {
+  const start = new Date("2026-06-29T00:00:00-05:00");
+  const end = new Date("2026-07-06T00:00:00-05:00");
+  return now >= start && now < end;
+}
+
 
 // Festival week: June 29 – July 5, 2026 (Memphis CDT, UTC−05:00)
 const COUNTDOWN_TARGET = new Date("2026-06-29T00:00:00-05:00");
@@ -156,6 +183,11 @@ function BackgroundAlbum({
 export default function KubaMemphisSite() {
   const [open, setOpen] = useState(false);
   const { days, hours, minutes, seconds } = useCountdown(COUNTDOWN_TARGET);
+  const now = new Date();
+  const festivalDay = getFestivalDay(now);
+  const liveNow = isFestivalLive(now) || (days === 0 && hours === 0 && minutes === 0 && seconds === 0);
+
+
 
   // Smooth anchor scrolling + restore position handling
   useEffect(() => {
@@ -282,112 +314,160 @@ export default function KubaMemphisSite() {
         </div>
       )}
 
-      {/* Hero */}
-      <section id="home" className="relative overflow-hidden min-h-[85vh] md:min-h-screen isolation-isolate">
-        <BackgroundAlbum
-          images={[
-            "/album/hscf_97.jpg",
-            "/album/team_pic1.jpg",
-            "/album/Ziwariqa26.jpg",
-            "/album/culture.jpg",
-            "/album/wash_team.jpg",
-            "/album/BirtukanGrad-702.jpg",
-            "/album/image_3.jpg",
-          ]}
-          interval={5000}
-          resumeAfter={8000}
-        />
+{/* Hero */}
+<section id="home" className="relative overflow-hidden min-h-[85vh] md:min-h-screen isolation-isolate">
+  <BackgroundAlbum
+    images={[
+      "/album/hscf_97.jpg",
+      "/album/team_pic1.jpg",
+      "/album/Ziwariqa26.jpg",
+      "/album/culture.jpg",
+      "/album/wash_team.jpg",
+      "/album/BirtukanGrad-702.jpg",
+      "/album/image_3.jpg",
+    ]}
+    interval={5000}
+    resumeAfter={8000}
+  />
 
-        {/* Content */}
-        <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 items-stretch gap-10">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-6 md:p-8"
-          >
-            <Badge className="bg-amber-400/20 text-amber-200 border-amber-300/30 mb-4">Coming Soon</Badge>
-            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-              KUBA 2026
-              <span className="block text-amber-300">Memphis, Tennessee</span>
-            </h1>
-            <p className="mt-4 text-lg md:text-xl text-white/90">
-              Celebrate unity, heritage, and community with a week of sports, music, food, and cultural showcases.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3 text-base">
-              <span className="inline-flex items-center gap-2">
-                <CalendarDays className="h-5 w-5 text-amber-300" /> June 29 – July 5, 2026
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-amber-300" /> Memphis, TN
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Users className="h-5 w-5 text-amber-300" /> Hosted by the Memphis Harari community
-              </span>
-            </div>
-            <div className="mt-8 flex gap-3">
-              {/* Buttons use NavLink asChild so the URL stays clean */}
-              <Button className="rounded-2xl bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-amber-400" asChild>
-                <NavLink href="#contact">Get Notified</NavLink>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="rounded-2xl border-emerald-400/40 text-emerald-200 hover:bg-emerald-800/50 hover:text-white focus-visible:ring-2 focus-visible:ring-amber-400"
-              >
-                <NavLink href="#about">Learn More</NavLink>
-              </Button>
-            </div>
-          </motion.div>
+  {/* Content */}
+  <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 items-stretch gap-10">
 
-          {/* Countdown panel */}
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="flex flex-col items-center">
-            <Card className="rounded-2xl bg-black/40 backdrop-blur-md border-white/10 mx-auto">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="h-5 w-5 text-amber-300" /> Countdown to June 29, 2026
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-4 gap-3 text-center">
-                  {[
-                    { label: "Days", value: days },
-                    { label: "Hours", value: hours },
-                    { label: "Minutes", value: minutes },
-                    { label: "Seconds", value: seconds },
-                  ].map(({ label, value }) => (
-                    <div key={label} className="rounded-2xl bg-white/5 p-4 border border-white/10">
-                      <p className="text-3xl md:text-4xl font-extrabold tabular-nums">{value.toString().padStart(2, "0")}</p>
-                      <p className="text-xs uppercase tracking-widest text-white/80">{label}</p>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-4 text-sm text-white/80">June 29 – July 5, 2026</p>
-              </CardContent>
-            </Card>
+    {/* LEFT PANEL */}
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-6 md:p-8"
+    >
+      {/* Coming Soon / Live Now Badge */}
+      <Badge
+        className={`mb-4 px-3 py-1 rounded-full text-sm font-semibold ${
+          liveNow
+            ? "bg-red-600 text-white border-red-300 animate-pulse"
+            : "bg-amber-400/20 text-amber-200 border-amber-300/30"
+        }`}
+      >
+        {liveNow ? "LIVE NOW" : "Coming Soon"}
+      </Badge>
 
-            {/* Quick stats */}
-            <div className="mt-6 flex justify-center gap-3 flex-wrap">
-              {stats.map((s) => (
-                <div key={s.label} className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-4 text-center w-40">
-                  <p className="text-xl font-bold text-amber-300">{s.value}</p>
-                  <p className="text-sm text-white/85">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
+        KUBA 2026
+        <span className="block text-amber-300">Memphis, Tennessee</span>
+      </h1>
+
+      <p className="mt-4 text-lg md:text-xl text-white/90">
+        Celebrate unity, heritage, and community with a week of sports, music, food, and cultural showcases.
+      </p>
+
+      <div className="mt-6 flex flex-wrap items-center gap-3 text-base">
+        <span className="inline-flex items-center gap-2">
+          <CalendarDays className="h-5 w-5 text-amber-300" /> June 29 – July 5, 2026
+        </span>
+        <span className="inline-flex items-center gap-2">
+          <MapPin className="h-5 w-5 text-amber-300" /> Memphis, TN
+        </span>
+        <span className="inline-flex items-center gap-2">
+          <Users className="h-5 w-5 text-amber-300" /> Hosted by the Memphis Harari community
+        </span>
+      </div>
+
+      <div className="mt-8 flex gap-3">
+        <Button className="rounded-2xl bg-emerald-600 hover:bg-emerald-700" asChild>
+          <NavLink href="#contact">Get Notified</NavLink>
+        </Button>
+        <Button
+          asChild
+          variant="outline"
+          className="rounded-2xl border-emerald-400/40 text-emerald-200 hover:bg-emerald-800/50 hover:text-white"
+        >
+          <NavLink href="#about">Learn More</NavLink>
+        </Button>
+      </div>
+    </motion.div>
+
+    {/* RIGHT PANEL */}
+   {/* Countdown panel */}
+{/* Countdown panel */}
+<motion.div
+  initial={{ opacity: 0, y: 16 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  className="flex flex-col items-center"
+>
+  <Card className="rounded-2xl bg-black/40 backdrop-blur-md border-white/10 mx-auto">
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <CalendarDays className="h-5 w-5 text-amber-300" />
+
+        {liveNow
+          ? `Today’s Festival Schedule`
+          : days === 0 && hours === 0 && minutes === 0 && seconds === 0
+          ? "Festival Started"
+          : "Countdown to June 29, 2026"}
+      </CardTitle>
+    </CardHeader>
+
+    <CardContent className="text-center">
+      {liveNow || (days === 0 && hours === 0 && minutes === 0 && seconds === 0) ? (
+        <>
+          {/* BIG DAY NUMBER */}
+          <p className="text-4xl font-extrabold text-amber-300 mb-2">
+            Day {festivalDay || 1}
+          </p>
+          <p className="text-white/85">Scroll down to view today’s schedule.</p>
+        </>
+      ) : (
+        <>
+          <div className="grid grid-cols-4 gap-3 text-center">
+            {[
+              { label: "Days", value: days },
+              { label: "Hours", value: hours },
+              { label: "Minutes", value: minutes },
+              { label: "Seconds", value: seconds },
+            ].map(({ label, value }) => (
+              <div key={label} className="rounded-2xl bg-white/5 p-4 border border-white/10">
+                <p className="text-3xl md:text-4xl font-extrabold tabular-nums">
+                  {value.toString().padStart(2, "0")}
+                </p>
+                <p className="text-xs uppercase tracking-widest text-white/80">{label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-sm text-white/80">June 29 – July 5, 2026</p>
+        </>
+      )}
+    </CardContent>
+  </Card>
+
+  {/* Quick stats (unchanged) */}
+  <div className="mt-6 flex justify-center gap-3 flex-wrap">
+    {stats.map((s) => (
+      <div
+        key={s.label}
+        className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-4 text-center w-40"
+      >
+        <p className="text-xl font-bold text-amber-300">{s.value}</p>
+        <p className="text-sm text-white/85">{s.label}</p>
+      </div>
+    ))}
+  </div>
+</motion.div>
+
+
+  </div>
+</section>
+
 
       {/* Schedule */}
       <section id="schedule" className="max-w-6xl mx-auto px-4 py-16">
         <div className="flex items-center gap-3 mb-6">
           <CalendarDays className="h-6 w-6 text-amber-300" />
-          <h2 className="text-3xl font-extrabold">Schedule (COMING SOON)</h2>
+          <h2 className="text-3xl font-extrabold">Schedule</h2>
         </div>
-        <p className="text-white/90 mb-6">This is a sample week outline based on Dallas Kuba 2025. Final schedule TBA.</p>
+        <p className="text-white/90 mb-6"><strong>*NOTE* </strong> This schedule is subject to change as the final date approaches.</p>
 
-        <Tabs defaultValue="day1" className="w-full">
+        <Tabs defaultValue={festivalDay ? `day${festivalDay}` : "day1"} className="w-full">
           <TabsList className="w-full grid grid-cols-7 gap-2 bg-white rounded-lg p-0 mt-3">
             {Array.from({ length: 7 }).map((_, i) => (
               <TabsTrigger
@@ -404,48 +484,47 @@ export default function KubaMemphisSite() {
             {
               key: "day1",
               items: [
-                { time: "1:00 PM - 5:00 PM", title: "Welcome & Opening Dua", icon: Users },
-                { time: "6:00 PM - 11:00 PM", title: "Soccer Round 1", icon: UtensilsCrossed },
+                { time: "1:00 PM - 5:00 PM", title: "Opening Day Ceremony", icon: Users },
+                { time: "5:30 PM - 11:00 PM", title: "Soccer Round 1", icon: Footprints },
               ],
             },
             {
               key: "day2",
               items: [
-                { time: "11:00 AM - 7:00 PM", title: "Volleyball & Basketball Round 1", icon: Users },
-                { time: "9:00 PM", title: "Evening Social", icon: Users },
+                { time: "11:00 AM - 7:00 PM", title: "Volleyball & Basketball Round 1", icon: DribbbleIcon },
+                { time: "8:00 PM - 12:00 AM", title: "Mawlud", icon: Star },
               ],
             },
             {
               key: "day3",
               items: [
-                { time: "2:00 PM - 9:30 PM", title: "Harari Cultural Day", icon: HeartHandshake },
-                { time: "TBA", title: " Mawlud", icon: Users },
+                { time: "2:00 PM - 9:30 PM", title: "Harari Day Ceremony", icon: HeartHandshake },
               ],
             },
             {
               key: "day4",
               items: [
-                { time: "3:00 PM - 9:00 PM", title: "Ziwariqa", icon: Users },
-                { time: "4:00 PM - 10:00 PM", title: "Soccer Playoff & Final", icon: UtensilsCrossed },
+                { time: "1:00 PM - Sunset", title: "Ziwariqa", icon: UtensilsCrossed },
+                { time: "7:00 PM - 11:30 PM", title: "Soccer Playoff & Final", icon: Footprints },
               ],
             },
             {
               key: "day5",
               items: [
-                { time: "2:00 PM", title: "Kids' Day: Games & Activities", icon: Baby },
-                { time: "8:00 PM - 2:00 AM", title: "Gala Night 1", icon: Users },
+                { time: "1:00 PM - 5:00 PM", title: "Mix & Mingle", icon: HeartHandshake },
+                { time: "8:00 PM - 1:00 AM", title: "Gala Night 1", icon: PartyPopper },
               ],
             },
             {
               key: "day6",
               items: [
-                { time: "11:00 AM - 4:00 PM", title: "Basketball Playoff & Finals", icon: Users },
-                { time: "8:00 PM - 2:00 AM", title: "Gala Night 2", icon: HeartHandshake },
+                { time: "10:00 AM - 4:00 PM", title: "Basketball Playoff & Finals", icon: Dribbble },
+                { time: "9:00 PM - 3:00 AM", title: "Gala Night 2", icon: PartyPopper },
               ],
             },
             {
               key: "day7",
-              items: [{ time: "11:00 AM - 3:00 PM", title: "Townhall Meeting", icon: UtensilsCrossed }],
+              items: [{ time: "12:00 AM - 2:00 PM", title: "Townhall Meeting", icon: BriefcaseBusiness }],
             },
           ].map(({ key, items }) => (
             <TabsContent key={key} value={key} className="mt-6">
@@ -585,7 +664,7 @@ export default function KubaMemphisSite() {
             <AccordionItem value="item-3">
               <AccordionTrigger className="px-6 py-4">Are the schedule items final?</AccordionTrigger>
               <AccordionContent className="px-6 pt-2 pb-4">
-                No. The schedule here is a preview; final times and locations will be announced closer to festival week.
+                No. The schedule here is a preview; final times and locations will be finalized closer to festival week.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -635,8 +714,8 @@ export default function KubaMemphisSite() {
         <div className="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8 text-sm text-white/85">
           <div>
             <p className="font-semibold">KUBA 2026 • Memphis</p>
-            <p className="mt-2">© {new Date().getFullYear()} Memphis Host Committee. All rights reserved.</p>
-            <p className="mt-1 text-xs text-white/70">This is a coming-soon page. Details subject to change.</p>
+            <p className="mt-2"> 2026 Memphis Harari Co. All rights reserved.</p>
+            <p className="mt-1 text-xs text-white/70">Details may be subject to change.</p>
           </div>
           <div>
             <p className="font-semibold">Quick Links</p>
