@@ -8,3 +8,8 @@ node_modules/
 node_modules/
 .next/
 .env*
+
+# Next.js
+node_modules/
+.next/
+.env*
