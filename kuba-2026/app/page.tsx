@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -10,7 +11,6 @@ import { Separator } from "@/components/ui/separator";
 import {
   CalendarDays,
   PartyPopper,
-  Goal,
   DribbbleIcon,
   Star,
   MapPin,
@@ -18,15 +18,13 @@ import {
   Facebook,
   Menu,
   X,
-  Clock,
   Users,
   UtensilsCrossed,
-  Drum,
   HeartHandshake,
-  Baby,
   Dribbble,
   BriefcaseBusiness,
   Footprints,
+  HandHeart,
 } from "lucide-react";
 
 /**
@@ -45,13 +43,11 @@ function getFestivalDay(now: Date) {
   return Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
 }
 
-
 function isFestivalLive(now: Date) {
   const start = new Date("2026-06-29T00:00:00-05:00");
   const end = new Date("2026-07-06T00:00:00-05:00");
   return now >= start && now < end;
 }
-
 
 // Festival week: June 29 – July 5, 2026 (Memphis CDT, UTC−05:00)
 const COUNTDOWN_TARGET = new Date("2026-06-29T00:00:00-05:00");
@@ -187,7 +183,13 @@ export default function KubaMemphisSite() {
   const festivalDay = getFestivalDay(now);
   const liveNow = isFestivalLive(now) || (days === 0 && hours === 0 && minutes === 0 && seconds === 0);
 
+  // ✅ Single Square checkout link (no preset amount passing)
+  const DONATE_URL =
+    "https://checkout.square.site/merchant/MLZ656EDF17D3/checkout/IHXYUZ75LWCKBIOPBYCSWNMF";
 
+  const handleDonate = () => {
+    window.open(DONATE_URL, "_blank", "noopener,noreferrer");
+  };
 
   // Smooth anchor scrolling + restore position handling
   useEffect(() => {
@@ -197,6 +199,7 @@ export default function KubaMemphisSite() {
       document.documentElement.style.scrollBehavior = prev;
     };
   }, []);
+
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
@@ -234,31 +237,56 @@ export default function KubaMemphisSite() {
               </svg>
             </div>
             <div>
-              <p className="text-[11px] uppercase tracking-widest text-amber-300/90">28th Harari Sport & Cultural Festival</p>
+              <p className="text-[11px] uppercase tracking-widest text-amber-300/90">
+                28th Harari Sport &amp; Cultural Festival
+              </p>
               <p className="font-bold">KUBA 2026 • Memphis</p>
             </div>
           </NavLink>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6">
-            <NavLink href="#schedule" className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition">
+            <NavLink
+              href="#schedule"
+              className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition"
+            >
               Schedule
             </NavLink>
-            <NavLink href="#about" className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition">
+            <NavLink
+              href="#about"
+              className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition"
+            >
               About
             </NavLink>
-            <NavLink href="#travel" className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition">
+            <NavLink
+              href="#travel"
+              className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition"
+            >
               Travel
             </NavLink>
-            <NavLink href="#contact" className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition">
+            <NavLink
+              href="#contact"
+              className="text-sm font-semibold text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-md px-1 transition"
+            >
               Contact
             </NavLink>
 
             {/* Get Updates button with NavLink as child (no hash in URL) */}
-            <Button className="bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-amber-400 rounded-2xl hidden lg:inline-flex" asChild>
+            <Button
+              className="bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-amber-400 rounded-2xl hidden lg:inline-flex"
+              asChild
+            >
               <NavLink href="#contact">Get Updates</NavLink>
             </Button>
           </nav>
+
+          {/* ✅ Donate button uses handler (no preset amount UI needed) */}
+          <Button
+            onClick={handleDonate}
+            className="bg-amber-400 text-emerald-950 hover:bg-amber-300 rounded-2xl font-bold focus-visible:ring-2 focus-visible:ring-amber-400"
+          >
+            Donate
+          </Button>
 
           {/* Mobile toggle */}
           <Button
@@ -285,6 +313,7 @@ export default function KubaMemphisSite() {
                 <X />
               </Button>
             </div>
+
             <div className="mt-6 grid gap-4">
               {[
                 ["#schedule", "Schedule"],
@@ -302,8 +331,17 @@ export default function KubaMemphisSite() {
                 </NavLink>
               ))}
             </div>
+
             <Separator className="my-6" />
+
             <div className="flex gap-3">
+              <Button
+                onClick={handleDonate}
+                className="rounded-2xl w-full bg-amber-400 text-emerald-950 hover:bg-amber-300 font-bold"
+              >
+                Donate
+              </Button>
+
               <Button asChild className="rounded-2xl w-full bg-emerald-600 hover:bg-emerald-700">
                 <NavLink href="#contact" onClick={() => setOpen(false)}>
                   Get Updates
@@ -314,150 +352,165 @@ export default function KubaMemphisSite() {
         </div>
       )}
 
-{/* Hero */}
-<section id="home" className="relative overflow-hidden min-h-[85vh] md:min-h-screen isolation-isolate">
-  <BackgroundAlbum
-    images={[
-      "/album/hscf_97.jpg",
-      "/album/team_pic1.jpg",
-      "/album/Ziwariqa26.jpg",
-      "/album/culture.jpg",
-      "/album/wash_team.jpg",
-      "/album/BirtukanGrad-702.jpg",
-      "/album/image_3.jpg",
-    ]}
-    interval={5000}
-    resumeAfter={8000}
-  />
+      {/* Hero */}
+      <section id="home" className="relative overflow-hidden min-h-[85vh] md:min-h-screen isolation-isolate">
+        <BackgroundAlbum
+          images={[
+            "/album/hscf_97.jpg",
+            "/album/team_pic1.jpg",
+            "/album/Ziwariqa26.jpg",
+            "/album/culture.jpg",
+            "/album/wash_team.jpg",
+            "/album/BirtukanGrad-702.jpg",
+            "/album/image_3.jpg",
+          ]}
+          interval={5000}
+          resumeAfter={8000}
+        />
 
-  {/* Content */}
-  <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 items-stretch gap-10">
+        {/* Content */}
+        <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 items-stretch gap-10">
+          {/* LEFT PANEL */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-6 md:p-8"
+          >
+            {/* Coming Soon / Live Now Badge */}
+            <Badge
+              className={`mb-4 px-3 py-1 rounded-full text-sm font-semibold ${
+                liveNow
+                  ? "bg-red-600 text-white border-red-300 animate-pulse"
+                  : "bg-amber-400/20 text-amber-200 border-amber-300/30"
+              }`}
+            >
+              {liveNow ? "LIVE NOW" : "Coming Soon"}
+            </Badge>
 
-    {/* LEFT PANEL */}
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-6 md:p-8"
-    >
-      {/* Coming Soon / Live Now Badge */}
-      <Badge
-        className={`mb-4 px-3 py-1 rounded-full text-sm font-semibold ${
-          liveNow
-            ? "bg-red-600 text-white border-red-300 animate-pulse"
-            : "bg-amber-400/20 text-amber-200 border-amber-300/30"
-        }`}
-      >
-        {liveNow ? "LIVE NOW" : "Coming Soon"}
-      </Badge>
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
+              KUBA 2026
+              <span className="block text-amber-300">Memphis, Tennessee</span>
+            </h1>
 
-      <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-        KUBA 2026
-        <span className="block text-amber-300">Memphis, Tennessee</span>
-      </h1>
+            <p className="mt-4 text-lg md:text-xl text-white/90">
+              Celebrate unity, heritage, and community with a week of sports, music, food, and cultural showcases.
+            </p>
 
-      <p className="mt-4 text-lg md:text-xl text-white/90">
-        Celebrate unity, heritage, and community with a week of sports, music, food, and cultural showcases.
-      </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-base">
+              <span className="inline-flex items-center gap-2">
+                <CalendarDays className="h-5 w-5 text-amber-300" /> June 29 – July 5, 2026
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-amber-300" /> Memphis, TN
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <Users className="h-5 w-5 text-amber-300" /> Hosted by the Memphis Harari community
+              </span>
+            </div>
 
-      <div className="mt-6 flex flex-wrap items-center gap-3 text-base">
-        <span className="inline-flex items-center gap-2">
-          <CalendarDays className="h-5 w-5 text-amber-300" /> June 29 – July 5, 2026
-        </span>
-        <span className="inline-flex items-center gap-2">
-          <MapPin className="h-5 w-5 text-amber-300" /> Memphis, TN
-        </span>
-        <span className="inline-flex items-center gap-2">
-          <Users className="h-5 w-5 text-amber-300" /> Hosted by the Memphis Harari community
-        </span>
-      </div>
+            <div className="mt-8 flex gap-3">
+              <Button className="rounded-2xl bg-emerald-600 hover:bg-emerald-700" asChild>
+                <NavLink href="#contact">Get Notified</NavLink>
+              </Button>
+              <Button
+                asChild
+                className="rounded-2xl bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-amber-400"
+              >
+                <NavLink href="#about">Learn More</NavLink>
+              </Button>
+            </div>
+          </motion.div>
 
-      <div className="mt-8 flex gap-3">
-        <Button className="rounded-2xl bg-emerald-600 hover:bg-emerald-700" asChild>
-          <NavLink href="#contact">Get Notified</NavLink>
-        </Button>
-        <Button
-          asChild
-          variant="outline"
-          className="rounded-2xl border-emerald-400/40 text-emerald-200 hover:bg-emerald-800/50 hover:text-white"
-        >
-          <NavLink href="#about">Learn More</NavLink>
-        </Button>
-      </div>
-    </motion.div>
+          {/* RIGHT PANEL */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col items-center"
+          >
+            {/* Countdown panel */}
+            <Card className="rounded-2xl bg-black/40 backdrop-blur-md border-white/10 mx-auto">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CalendarDays className="h-5 w-5 text-amber-300" />
+                  {liveNow
+                    ? `Today’s Festival Schedule`
+                    : days === 0 && hours === 0 && minutes === 0 && seconds === 0
+                    ? "Festival Started"
+                    : "Countdown to June 29, 2026"}
+                </CardTitle>
+              </CardHeader>
 
-    {/* RIGHT PANEL */}
-   {/* Countdown panel */}
-{/* Countdown panel */}
-<motion.div
-  initial={{ opacity: 0, y: 16 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6 }}
-  className="flex flex-col items-center"
->
-  <Card className="rounded-2xl bg-black/40 backdrop-blur-md border-white/10 mx-auto">
-    <CardHeader>
-      <CardTitle className="flex items-center gap-2">
-        <CalendarDays className="h-5 w-5 text-amber-300" />
+              <CardContent className="text-center">
+                {liveNow || (days === 0 && hours === 0 && minutes === 0 && seconds === 0) ? (
+                  <>
+                    <p className="text-4xl font-extrabold text-amber-300 mb-2">Day {festivalDay || 1}</p>
+                    <p className="text-white/85">Scroll down to view today’s schedule.</p>
+                  </>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-4 gap-3 text-center">
+                      {[
+                        { label: "Days", value: days },
+                        { label: "Hours", value: hours },
+                        { label: "Minutes", value: minutes },
+                        { label: "Seconds", value: seconds },
+                      ].map(({ label, value }) => (
+                        <div key={label} className="rounded-2xl bg-white/5 p-4 border border-white/10">
+                          <p className="text-3xl md:text-4xl font-extrabold tabular-nums">
+                            {value.toString().padStart(2, "0")}
+                          </p>
+                          <p className="text-xs uppercase tracking-widest text-white/80">{label}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="mt-4 text-sm text-white/80">June 29 – July 5, 2026</p>
+                  </>
+                )}
+              </CardContent>
+            </Card>
 
-        {liveNow
-          ? `Today’s Festival Schedule`
-          : days === 0 && hours === 0 && minutes === 0 && seconds === 0
-          ? "Festival Started"
-          : "Countdown to June 29, 2026"}
-      </CardTitle>
-    </CardHeader>
+            {/* ✅ Support card UI kept — just simplified to one Donate button */}
+            <Card className="mt-6 w-full rounded-2xl bg-black/40 backdrop-blur-md border-white/10">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <HandHeart className="h-5 w-5 text-amber-300" />
+                  Support KUBA 2026
+                </CardTitle>
+              </CardHeader>
 
-    <CardContent className="text-center">
-      {liveNow || (days === 0 && hours === 0 && minutes === 0 && seconds === 0) ? (
-        <>
-          {/* BIG DAY NUMBER */}
-          <p className="text-4xl font-extrabold text-amber-300 mb-2">
-            Day {festivalDay || 1}
-          </p>
-          <p className="text-white/85">Scroll down to view today’s schedule.</p>
-        </>
-      ) : (
-        <>
-          <div className="grid grid-cols-4 gap-3 text-center">
-            {[
-              { label: "Days", value: days },
-              { label: "Hours", value: hours },
-              { label: "Minutes", value: minutes },
-              { label: "Seconds", value: seconds },
-            ].map(({ label, value }) => (
-              <div key={label} className="rounded-2xl bg-white/5 p-4 border border-white/10">
-                <p className="text-3xl md:text-4xl font-extrabold tabular-nums">
-                  {value.toString().padStart(2, "0")}
+              <CardContent className="grid gap-4">
+                <p className="text-sm text-white/85">
+                Donations help fund rentals, programs, hospitality, and operational costs throughout the week-long celebration.
                 </p>
-                <p className="text-xs uppercase tracking-widest text-white/80">{label}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-4 text-sm text-white/80">June 29 – July 5, 2026</p>
-        </>
-      )}
-    </CardContent>
-  </Card>
 
-  {/* Quick stats (unchanged) */}
-  <div className="mt-6 flex justify-center gap-3 flex-wrap">
-    {stats.map((s) => (
-      <div
-        key={s.label}
-        className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-4 text-center w-40"
-      >
-        <p className="text-xl font-bold text-amber-300">{s.value}</p>
-        <p className="text-sm text-white/85">{s.label}</p>
-      </div>
-    ))}
-  </div>
-</motion.div>
+                <Button
+                  onClick={handleDonate}
+                  className="rounded-2xl bg-amber-400 text-emerald-950 hover:bg-amber-300 font-bold"
+                >
+                  Donate
+                </Button>
 
+                <p className="text-xs text-white/60">Secure checkout powered by Square.</p>
+              </CardContent>
+            </Card>
 
-  </div>
-</section>
-
+            {/* Quick stats */}
+            <div className="mt-6 flex justify-center gap-3 flex-wrap">
+              {stats.map((s) => (
+                <div
+                  key={s.label}
+                  className="rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 p-4 text-center w-40"
+                >
+                  <p className="text-xl font-bold text-amber-300">{s.value}</p>
+                  <p className="text-sm text-white/85">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Schedule */}
       <section id="schedule" className="max-w-6xl mx-auto px-4 py-16">
@@ -465,7 +518,9 @@ export default function KubaMemphisSite() {
           <CalendarDays className="h-6 w-6 text-amber-300" />
           <h2 className="text-3xl font-extrabold">Schedule</h2>
         </div>
-        <p className="text-white/90 mb-6"><strong>*NOTE* </strong> This schedule is subject to change as the final date approaches.</p>
+        <p className="text-white/90 mb-6">
+          <strong>*NOTE* </strong> This schedule is subject to change as the final date approaches.
+        </p>
 
         <Tabs defaultValue={festivalDay ? `day${festivalDay}` : "day1"} className="w-full">
           <TabsList className="w-full grid grid-cols-7 gap-2 bg-white rounded-lg p-0 mt-3">
@@ -485,7 +540,7 @@ export default function KubaMemphisSite() {
               key: "day1",
               items: [
                 { time: "1:00 PM - 5:00 PM", title: "Opening Day Ceremony", icon: Users },
-                { time: "5:30 PM - 11:00 PM", title: "Soccer Round 1", icon: Footprints },
+                { time: "6:00 PM - 11:00 PM", title: "Soccer Round 1", icon: Footprints },
               ],
             },
             {
@@ -497,22 +552,20 @@ export default function KubaMemphisSite() {
             },
             {
               key: "day3",
-              items: [
-                { time: "2:00 PM - 9:30 PM", title: "Harari Day Ceremony", icon: HeartHandshake },
-              ],
+              items: [{ time: "1:00 PM - 8:00 PM", title: "Harari Day Ceremony", icon: HeartHandshake }],
             },
             {
               key: "day4",
               items: [
-                { time: "1:00 PM - Sunset", title: "Ziwariqa", icon: UtensilsCrossed },
-                { time: "7:00 PM - 11:30 PM", title: "Soccer Playoff & Final", icon: Footprints },
+                { time: "1:00 PM - 8:00 PM", title: "Ziwariqa", icon: UtensilsCrossed },
+                { time: "8:00 PM - 11:00 PM", title: "Soccer Playoff & Final", icon: Footprints },
               ],
             },
             {
               key: "day5",
               items: [
                 { time: "1:00 PM - 5:00 PM", title: "Mix & Mingle", icon: HeartHandshake },
-                { time: "8:00 PM - 1:00 AM", title: "Gala Night 1", icon: PartyPopper },
+                { time: "8:00 PM - 12:00 AM", title: "Gala Night 1", icon: PartyPopper },
               ],
             },
             {
@@ -524,7 +577,10 @@ export default function KubaMemphisSite() {
             },
             {
               key: "day7",
-              items: [{ time: "12:00 AM - 2:00 PM", title: "Townhall Meeting", icon: BriefcaseBusiness }],
+              items: [
+                { time: "12:00 AM - 2:00 PM", title: "Townhall Meeting", icon: BriefcaseBusiness },
+                { time: "2:00 PM - 3:00 PM", title: "Farewell Ceremony", icon: BriefcaseBusiness },
+              ],
             },
           ].map(({ key, items }) => (
             <TabsContent key={key} value={key} className="mt-6">
@@ -553,11 +609,12 @@ export default function KubaMemphisSite() {
           <div>
             <h2 className="text-3xl font-extrabold mb-4">What is KUBA?</h2>
             <p className="text-white/90 leading-relaxed">
-              KUBA (the Harari Sport & Cultural Festival) is an annual gathering of the global Harari community featuring sports
+              KUBA (the Harari Sport &amp; Cultural Festival) is an annual gathering of the global Harari community featuring sports
               tournaments, cultural showcases, music, fashion, food, and family-friendly programming. It celebrates Harari heritage
-              and unity while welcoming friends and neighbors from all backgrounds. Inshallah, Memphis will proudly host the 28th KUBA from
-              June 29 – July 5, 2026.
+              and unity while welcoming friends and neighbors from all backgrounds. Inshallah, Memphis will proudly host the 28th
+              KUBA from June 29 – July 5, 2026.
             </p>
+
             <div className="mt-6 grid sm:grid-cols-2 gap-3">
               <div className="rounded-2xl bg-emerald-900/30 border border-white/10 p-4">
                 <p className="font-semibold">Family-Friendly</p>
@@ -568,13 +625,13 @@ export default function KubaMemphisSite() {
                 <p className="text-sm text-white/85">Traditional displays, music, dance, and language sessions.</p>
               </div>
               <div className="rounded-2xl bg-emerald-900/30 border border-white/10 p-4">
-                <p className="font-semibold">Community & Networking</p>
+                <p className="font-semibold">Community &amp; Networking</p>
                 <p className="text-sm text-white/85">
                   Opportunities to connect with Harari families, leaders, and organizations from across America.
                 </p>
               </div>
               <div className="rounded-2xl bg-emerald-900/30 border border-white/10 p-4">
-                <p className="font-semibold">Sports & Awards</p>
+                <p className="font-semibold">Sports &amp; Awards</p>
                 <p className="text-sm text-white/85">Soccer, basketball, and more!</p>
               </div>
             </div>
@@ -610,8 +667,9 @@ export default function KubaMemphisSite() {
       <section id="travel" className="max-w-6xl mx-auto px-4 py-16">
         <div className="flex items-center gap-3 mb-6">
           <MapPin className="h-6 w-6 text-amber-300" />
-          <h2 className="text-3xl font-extrabold">Travel & Venue</h2>
+          <h2 className="text-3xl font-extrabold">Travel &amp; Venue</h2>
         </div>
+
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <Card className="rounded-2xl bg-emerald-900/30 border-white/10">
             <CardHeader>
@@ -625,7 +683,7 @@ export default function KubaMemphisSite() {
                 <strong>Hotels:</strong> TBA
               </p>
               <p>
-                <strong>Halal Food &amp; Coffee:</strong> For halal food & dessert options,{" "}
+                <strong>Halal Food &amp; Coffee:</strong> For halal food &amp; dessert options,{" "}
                 <a
                   href="https://www.google.com/maps/d/u/0/viewer?mid=1jIl3kd9BTMa3HDpAfoI_n_eGs5cqesTQ&ll=35.14770656054214%2C-89.85940621849579&z=11"
                   target="_blank"
@@ -714,9 +772,10 @@ export default function KubaMemphisSite() {
         <div className="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8 text-sm text-white/85">
           <div>
             <p className="font-semibold">KUBA 2026 • Memphis</p>
-            <p className="mt-2"> 2026 Memphis Harari Co. All rights reserved.</p>
+            <p className="mt-2">2026 Memphis Harari Co. All rights reserved.</p>
             <p className="mt-1 text-xs text-white/70">Details may be subject to change.</p>
           </div>
+
           <div>
             <p className="font-semibold">Quick Links</p>
             <ul className="mt-2 grid gap-1">
@@ -737,10 +796,11 @@ export default function KubaMemphisSite() {
               </li>
             </ul>
           </div>
+
           <div>
-            <p className="font-semibold">Accessibility & Conduct</p>
+            <p className="font-semibold">Accessibility &amp; Conduct</p>
             <ul className="mt-2 grid gap-1">
-              <li>Accessible seating & family rooms planned</li>
+              <li>Accessible seating &amp; family rooms planned</li>
               <li>Zero-tolerance harassment policy</li>
             </ul>
           </div>
