@@ -125,6 +125,7 @@ function BackgroundAlbum({
   const next = () => setIdx((i) => (i + 1) % images.length);
   const prev = () => setIdx((i) => (i - 1 + images.length) % images.length);
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (reduceMotion) return;
     const t = window.setInterval(() => {
