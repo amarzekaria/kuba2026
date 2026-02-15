@@ -456,7 +456,7 @@ export default function KubaMemphisSite() {
                 {liveNow || (days === 0 && hours === 0 && minutes === 0 && seconds === 0) ? (
                   <>
                     <p className="text-4xl font-extrabold text-amber-300 mb-2">Day {festivalDay || 1}</p>
-                    <p className="text-white/85">Scroll down to view today's schedule.</p>
+                    <p className="text-white/85">Scroll down to view today&apos;s schedule.</p>
                   </>
                 ) : (
                   <>

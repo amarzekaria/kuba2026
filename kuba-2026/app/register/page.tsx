@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+
 
 const SOCCER_FORM_URL     = "https://docs.google.com/forms/d/e/1FAIpQLSd4VchSSA6ns-DmiZoHsU9wX69KvVBFV-OzLE2bOTVb1BmfmQ/viewform";
 const BASKETBALL_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdWkHfROLrdutgYvz3dO4dzbUbuikEIOiBvHLQJLkhj-5vEYQ/viewform?usp=publish-editor";
@@ -67,32 +69,32 @@ export default function RegisterPage() {
         }}
       >
         {/* Back to home pill */}
-        <a
-          href="/"
-          style={{
-            display: "inline-block",
-            marginBottom: 28,
-            padding: "6px 18px",
-            borderRadius: 20,
-            border: "1px solid rgba(212,168,67,0.35)",
-            color: "#e8c97a",
-            fontSize: 12,
-            fontWeight: 600,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            textDecoration: "none",
-            transition: "background 0.2s",
-          }}
-          onMouseEnter={(e) =>
-            ((e.target as HTMLElement).style.background =
-              "rgba(212,168,67,0.1)")
-          }
-          onMouseLeave={(e) =>
-            ((e.target as HTMLElement).style.background = "transparent")
-          }
-        >
-          ← BACK
-        </a>
+      <Link
+        href="/"
+        style={{
+          display: "inline-block",
+          marginBottom: 28,
+          padding: "6px 18px",
+          borderRadius: 20,
+          border: "1px solid rgba(212,168,67,0.35)",
+          color: "#e8c97a",
+          fontSize: 12,
+          fontWeight: 600,
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+          textDecoration: "none",
+          transition: "background 0.2s",
+        }}
+        onMouseEnter={(e) =>
+          ((e.currentTarget as HTMLElement).style.background = "rgba(212,168,67,0.1)")
+        }
+        onMouseLeave={(e) =>
+          ((e.currentTarget as HTMLElement).style.background = "transparent")
+        }
+      >
+        ← BACK
+      </Link>
+
 
         <h1
           style={{
