@@ -272,6 +272,14 @@ export default function KubaMemphisSite() {
               Contact
             </NavLink>
 
+            {/* Sports Registration button */}
+            <Button
+              className="bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-amber-400 rounded-2xl hidden lg:inline-flex"
+              asChild
+            >
+              <a href="/register">Sports Registration</a>
+            </Button>
+
             {/* Get Updates button with NavLink as child (no hash in URL) */}
             <Button
               className="bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-2 focus-visible:ring-amber-400 rounded-2xl hidden lg:inline-flex"
@@ -321,6 +329,7 @@ export default function KubaMemphisSite() {
                 ["#about", "About"],
                 ["#travel", "Travel"],
                 ["#contact", "Contact"],
+                ["/register", "Sports Registration"],
               ].map(([href, label]) => (
                 <NavLink
                   key={href}
@@ -436,7 +445,7 @@ export default function KubaMemphisSite() {
                 <CardTitle className="flex items-center gap-2">
                   <CalendarDays className="h-5 w-5 text-amber-300" />
                   {liveNow
-                    ? `Today’s Festival Schedule`
+                    ? `Today's Festival Schedule`
                     : days === 0 && hours === 0 && minutes === 0 && seconds === 0
                     ? "Festival Started"
                     : "Countdown to June 29, 2026"}
@@ -447,7 +456,7 @@ export default function KubaMemphisSite() {
                 {liveNow || (days === 0 && hours === 0 && minutes === 0 && seconds === 0) ? (
                   <>
                     <p className="text-4xl font-extrabold text-amber-300 mb-2">Day {festivalDay || 1}</p>
-                    <p className="text-white/85">Scroll down to view today’s schedule.</p>
+                    <p className="text-white/85">Scroll down to view today's schedule.</p>
                   </>
                 ) : (
                   <>
@@ -795,6 +804,15 @@ export default function KubaMemphisSite() {
                   Contact
                 </NavLink>
               </li>
+              <li>
+                <NavLink href="/register" className="hover:underline">
+                  Sports Registration
+                </NavLink>
+              </li>
+              <Button
+                onClick={handleDonate}              >
+                Donate
+              </Button>
             </ul>
           </div>
 
