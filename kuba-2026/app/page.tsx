@@ -160,7 +160,8 @@ export default function KubaMemphisSite() {
   const [open, setOpen] = useState(false);
   const [igPostId, setIgPostId]   = useState<string | null>(null);
   const [igLoading, setIgLoading] = useState(true);
-  const [fbLoading, setFbLoading] = useState(true);
+  const [igPostId2, setIgPostId2]   = useState<string | null>(null);
+  const [igLoading2, setIgLoading2] = useState(true);
   const { days, hours, minutes, seconds } = useCountdown(COUNTDOWN_TARGET);
   const now        = new Date();
   const festivalDay = getFestivalDay(now);
@@ -169,12 +170,19 @@ export default function KubaMemphisSite() {
   const DONATE_URL  = "https://checkout.square.site/merchant/MLZ656EDF17D3/checkout/IHXYUZ75LWCKBIOPBYCSWNMF";
   const handleDonate = () => window.open(DONATE_URL, "_blank", "noopener,noreferrer");
 
-  /* Fetch latest Instagram post ID */
+  /* Fetch Instagram post IDs */
   useEffect(() => {
     fetch("/api/instagram-latest")
       .then((r) => r.json())
       .then((d) => { setIgPostId(d.postId ?? null); setIgLoading(false); })
       .catch(() => setIgLoading(false));
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/instagram-post-2")
+      .then((r) => r.json())
+      .then((d) => { setIgPostId2(d.postId ?? null); setIgLoading2(false); })
+      .catch(() => setIgLoading2(false));
   }, []);
 
   /* Scroll setup */
@@ -416,7 +424,7 @@ export default function KubaMemphisSite() {
       <section id="schedule" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <SectionHeading icon={CalendarDays} title="Schedule" />
         <p className="text-sm text-white/50 mb-8 ml-12">
-          <span className="text-white/70 font-medium">*NOTE*</span> Subject to change as the final date approaches.
+          <span className="text-white/70 font-medium">*NOTE*</span> Locations will be announced as the final date approaches.
         </p>
 
         <Tabs defaultValue={festivalDay ? `day${festivalDay}` : "day1"} className="w-full">
@@ -492,42 +500,61 @@ export default function KubaMemphisSite() {
 
         <div className="grid md:grid-cols-2 gap-6 items-start">
 
-          {/* ── Facebook Page Plugin ─────────────────────────────────────────── */}
-          <div className="rounded-2xl overflow-hidden border border-blue-500/20 bg-[#0d1b35]/80">
+          {/* ── Instagram post 2 ─────────────────────────────────────────────── */}
+          <div className="rounded-2xl overflow-hidden border border-pink-500/20"
+            style={{ background: "linear-gradient(135deg, #1a0a25 0%, #250a1a 55%, #1a0d07 100%)" }}>
             {/* Header */}
-            <div className="flex items-center gap-3 px-5 py-4 border-b border-blue-500/15">
-              <div className="h-9 w-9 rounded-xl bg-blue-600 grid place-items-center shrink-0">
-                <Facebook className="h-4 w-4 text-white" />
+            <div className="flex items-center gap-3 px-5 py-4 border-b border-pink-500/15">
+              <div className="h-9 w-9 rounded-xl grid place-items-center shrink-0"
+                style={{ background: "linear-gradient(135deg, #9333ea, #ec4899, #f97316)" }}>
+                <Instagram className="h-4 w-4 text-white" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-white text-sm leading-tight">Facebook</p>
-                <p className="text-xs text-white/50">Most recent post</p>
+                <p className="font-bold text-white text-sm leading-tight">Instagram</p>
+                <p className="text-xs text-white/50">Featured post</p>
               </div>
-              <a href="https://www.facebook.com/profile.php?id=61574823466873"
+              <a href="https://www.instagram.com/memphiskuba2026/"
                 target="_blank" rel="noopener noreferrer"
-                className="shrink-0 text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors bg-blue-500/10 border border-blue-500/20 px-3 py-1.5 rounded-full">
+                className="shrink-0 text-xs font-semibold text-pink-400 hover:text-pink-300 transition-colors bg-pink-500/10 border border-pink-500/20 px-3 py-1.5 rounded-full">
                 Open ↗
               </a>
             </div>
-            {/* Embed */}
-            <div className="flex justify-center overflow-x-auto p-4">
-              <div className="relative" style={{ width: 340, height: 600, flexShrink: 0 }}>
-                {fbLoading && (
-                  <div className="absolute inset-0 rounded-xl bg-white/5 border border-white/10 animate-pulse" />
-                )}
+            {/* Embed / states */}
+            <div className="p-4 flex justify-center">
+              {igLoading2 ? (
+                <div className="rounded-xl bg-white/5 border border-white/10 animate-pulse"
+                  style={{ width: 340, height: 600 }} />
+              ) : igPostId2 ? (
                 <iframe
-                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61574823466873&tabs=timeline&width=340&height=600&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
+                  src={`https://www.instagram.com/p/${igPostId2}/embed/`}
                   width={340}
                   height={600}
-                  style={{ border: "none", overflow: "hidden", borderRadius: "12px", display: "block",
-                    opacity: fbLoading ? 0 : 1, transition: "opacity 0.4s ease" }}
+                  style={{ border: "none", borderRadius: "12px", display: "block", flexShrink: 0 }}
                   scrolling="no"
-                  loading="lazy"
-                  onLoad={() => setFbLoading(false)}
-                  sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-storage-access-by-user-activation"
+                  sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
                   allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                 />
-              </div>
+              ) : (
+                <div className="w-full rounded-xl bg-white/5 border border-white/10 p-6 text-center flex flex-col items-center justify-center gap-4"
+                  style={{ minHeight: 300 }}>
+                  <div className="h-12 w-12 rounded-2xl grid place-items-center"
+                    style={{ background: "linear-gradient(135deg,#9333ea,#ec4899,#f97316)" }}>
+                    <Instagram className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white text-sm">@memphiskuba2026</p>
+                    <p className="text-white/50 text-xs mt-1 max-w-[220px] mx-auto leading-relaxed">
+                      Set <code className="text-pink-300 bg-white/10 px-1 py-0.5 rounded text-[10px]">INSTAGRAM_POST_2</code> in your Vercel env vars to show a featured post here.
+                    </p>
+                  </div>
+                  <Button asChild className="rounded-2xl font-semibold text-white hover:opacity-90 transition-all text-sm"
+                    style={{ background: "linear-gradient(135deg,#9333ea,#ec4899,#f97316)" }}>
+                    <a href="https://www.instagram.com/memphiskuba2026/" target="_blank" rel="noopener noreferrer">
+                      <Instagram className="h-3.5 w-3.5" /> View on Instagram
+                    </a>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
 
