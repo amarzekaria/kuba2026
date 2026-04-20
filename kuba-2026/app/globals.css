@@ -120,3 +120,40 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* =====================
+   KUBA 2026 Custom Styles
+   ===================== */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(251, 191, 36, 0.25); }
+  50% { box-shadow: 0 0 22px rgba(251, 191, 36, 0.55); }
+}
+
+/* Hero title — always gradient */
+.kuba-hero-title {
+  background: linear-gradient(135deg, #ffffff 0%, #fde68a 65%, #fcd34d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glowing countdown boxes (dark mode only) */
+.dark .countdown-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Subtle dot grid for dark hero (applied on an overlay div) */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Hide scrollbar for horizontal tab scroll */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
