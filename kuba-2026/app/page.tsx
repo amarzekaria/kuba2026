@@ -245,7 +245,7 @@ export default function KubaMemphisSite() {
               </Button>
               <p className="flex items-center gap-1 text-[10px] font-bold text-red-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse inline-block" />
-                Closes Jun 13
+                Closes May 19!
               </p>
             </div>
             <Button className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl text-sm hidden lg:inline-flex" asChild>
@@ -290,7 +290,7 @@ export default function KubaMemphisSite() {
                   {href === "/register" && (
                     <p className="flex items-center gap-1.5 mt-1 text-xs font-bold text-red-400">
                       <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse inline-block" />
-                      Registration closes June 13
+                      Registration closes May 19!
                     </p>
                   )}
                 </div>
@@ -690,7 +690,7 @@ export default function KubaMemphisSite() {
                   </Button>
                   <p className="flex items-center justify-center gap-1.5 text-xs font-bold text-red-400">
                     <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse inline-block" />
-                    Registration closes June 13
+                    Registration closes May 19!
                   </p>
                   <Button onClick={handleDonate}
                     className="w-full rounded-2xl bg-amber-400 text-emerald-950 hover:bg-amber-300 font-bold">
@@ -776,7 +776,7 @@ export default function KubaMemphisSite() {
               { value: "q2", q: "Are the schedule items final?",
                 a: "No. The schedule shown is a preview — final times and locations will be confirmed closer to festival week." },
               { value: "q3", q: "Is there a registration fee?",
-                a: "Details on fees and registration will be announced closer to the event. Sports registration is now open until June 13th." },
+                a: "Details on fees and registration will be announced closer to the event. Sports registration is now open until May 19th." },
             ].map(({ value, q, a }) => (
               <AccordionItem key={value} value={value} className="border-white/10">
                 <AccordionTrigger className="px-5 sm:px-6 py-4 text-white hover:text-amber-300 hover:no-underline font-medium text-left text-sm sm:text-base transition-colors">
