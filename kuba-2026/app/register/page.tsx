@@ -15,10 +15,10 @@ export default function RegisterPage() {
   const [selectedSport, setSelectedSport] = useState<Sport>("soccer");
 
   const sports: { id: Sport; label: string; formUrl: string; color: string }[] = [
-    { id: "soccer",     label: "Soccer",      formUrl: SOCCER_FORM_URL,     color: "#2e9e5a" },
-    { id: "basketball", label: "Basketball",  formUrl: BASKETBALL_FORM_URL, color: "#d4a843" },
-    { id: "volleyball", label: "Volleyball",  formUrl: VOLLEYBALL_FORM_URL, color: "#2e9e5a" },
-    { id: "freeagent",  label: "Free Agent",  formUrl: FREE_AGENT_FORM_URL, color: "#5b8dd9" },
+    { id: "soccer",     label: "Soccer",      formUrl: SOCCER_FORM_URL,     color: "#2563eb" },
+    { id: "basketball", label: "Basketball",  formUrl: BASKETBALL_FORM_URL, color: "#f59e0b" },
+    { id: "volleyball", label: "Volleyball",  formUrl: VOLLEYBALL_FORM_URL, color: "#3b82f6" },
+    { id: "freeagent",  label: "Free Agent",  formUrl: FREE_AGENT_FORM_URL, color: "#6366f1" },
   ];
 
   const activeSport = sports.find(s => s.id === selectedSport)!;
@@ -27,7 +27,7 @@ export default function RegisterPage() {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(155deg, #0d2b1e 0%, #164d2e 40%, #0f3a25 100%)",
+        background: "linear-gradient(155deg, #060d1f 0%, #0a1628 40%, #030810 100%)",
         fontFamily: "'Georgia', 'Times New Roman', serif",
         position: "relative",
         overflow: "hidden",
@@ -43,7 +43,7 @@ export default function RegisterPage() {
           height: 480,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(46,158,90,0.18) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(37,99,235,0.22) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -56,7 +56,7 @@ export default function RegisterPage() {
           height: 520,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(212,168,67,0.1) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(251,191,36,0.12) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -78,8 +78,8 @@ export default function RegisterPage() {
           marginBottom: 28,
           padding: "6px 18px",
           borderRadius: 20,
-          border: "1px solid rgba(212,168,67,0.35)",
-          color: "#e8c97a",
+          border: "1px solid rgba(251,191,36,0.35)",
+          color: "#fcd34d",
           fontSize: 12,
           fontWeight: 600,
           letterSpacing: "0.14em",
@@ -88,7 +88,7 @@ export default function RegisterPage() {
           transition: "background 0.2s",
         }}
         onMouseEnter={(e) =>
-          ((e.currentTarget as HTMLElement).style.background = "rgba(212,168,67,0.1)")
+          ((e.currentTarget as HTMLElement).style.background = "rgba(251,191,36,0.1)")
         }
         onMouseLeave={(e) =>
           ((e.currentTarget as HTMLElement).style.background = "transparent")
@@ -185,7 +185,7 @@ export default function RegisterPage() {
                 fontWeight: 700,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                color: "rgba(91,141,217,0.7)",
+                color: "rgba(99,102,241,0.8)",
               }}
             >
               No Team? Play as a Free Agent
@@ -199,11 +199,11 @@ export default function RegisterPage() {
                   style={{
                     padding: "10px 24px",
                     borderRadius: 20,
-                    background: isActive ? sport.color : "rgba(91,141,217,0.12)",
+                    background: isActive ? sport.color : "rgba(99,102,241,0.12)",
                     border: isActive
                       ? `2px solid ${sport.color}`
-                      : "2px solid rgba(91,141,217,0.35)",
-                    color: isActive ? "#fff" : "rgba(91,141,217,0.85)",
+                      : "2px solid rgba(99,102,241,0.35)",
+                    color: isActive ? "#fff" : "rgba(129,140,248,0.9)",
                     fontSize: 14,
                     fontWeight: 700,
                     cursor: "pointer",
@@ -214,12 +214,12 @@ export default function RegisterPage() {
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
-                      (e.target as HTMLElement).style.background = "rgba(91,141,217,0.2)";
+                      (e.target as HTMLElement).style.background = "rgba(99,102,241,0.2)";
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive) {
-                      (e.target as HTMLElement).style.background = "rgba(91,141,217,0.12)";
+                      (e.target as HTMLElement).style.background = "rgba(99,102,241,0.12)";
                     }
                   }}
                 >
@@ -305,7 +305,7 @@ export default function RegisterPage() {
           <a
             href="mailto:contact@kuba2026.org"
             style={{
-              color: "#e8c97a",
+              color: "#fcd34d",
               textDecoration: "none",
               fontWeight: 600,
             }}
