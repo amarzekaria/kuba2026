@@ -135,8 +135,15 @@
   50% { box-shadow: 0 0 22px rgba(251, 191, 36, 0.55); }
 }
 
-/* Hero title — always gradient */
+/* Hero title — blue gradient in light, white-gold in dark */
 .kuba-hero-title {
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 55%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dark .kuba-hero-title {
   background: linear-gradient(135deg, #ffffff 0%, #fde68a 65%, #fcd34d 100%);
   -webkit-background-clip: text;
   background-clip: text;

@@ -4,19 +4,21 @@ import { useState } from "react";
 import Link from "next/link";
 
 
-const SOCCER_FORM_URL     = "https://docs.google.com/forms/d/e/1FAIpQLSd4VchSSA6ns-DmiZoHsU9wX69KvVBFV-OzLE2bOTVb1BmfmQ/viewform";
-const BASKETBALL_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdWkHfROLrdutgYvz3dO4dzbUbuikEIOiBvHLQJLkhj-5vEYQ/viewform?usp=publish-editor";
-const VOLLEYBALL_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeCh5C2-Pp7Wiwemr_yiL-zbAXJ4VyI5JmZFIVVMKPGGhelDg/viewform?usp=publish-editor";
+const SOCCER_FORM_URL      = "https://docs.google.com/forms/d/e/1FAIpQLSd4VchSSA6ns-DmiZoHsU9wX69KvVBFV-OzLE2bOTVb1BmfmQ/viewform";
+const BASKETBALL_FORM_URL  = "https://docs.google.com/forms/d/e/1FAIpQLSdWkHfROLrdutgYvz3dO4dzbUbuikEIOiBvHLQJLkhj-5vEYQ/viewform?usp=publish-editor";
+const VOLLEYBALL_FORM_URL  = "https://docs.google.com/forms/d/e/1FAIpQLSeCh5C2-Pp7Wiwemr_yiL-zbAXJ4VyI5JmZFIVVMKPGGhelDg/viewform?usp=publish-editor";
+const FREE_AGENT_FORM_URL  = "https://docs.google.com/forms/d/e/1FAIpQLScWZEYhSkloEJRQABI6IYVyGGk5B4yGi-86EkIj0U3kjlMnbQ/viewform?usp=header";
 
-type Sport = "soccer" | "basketball" | "volleyball";
+type Sport = "soccer" | "basketball" | "volleyball" | "freeagent";
 
 export default function RegisterPage() {
   const [selectedSport, setSelectedSport] = useState<Sport>("soccer");
 
   const sports: { id: Sport; label: string; formUrl: string; color: string }[] = [
-    { id: "soccer",     label: "Soccer",     formUrl: SOCCER_FORM_URL,     color: "#2e9e5a" },
-    { id: "basketball", label: "Basketball", formUrl: BASKETBALL_FORM_URL, color: "#d4a843" },
-    { id: "volleyball", label: "Volleyball", formUrl: VOLLEYBALL_FORM_URL, color: "#2e9e5a" },
+    { id: "soccer",     label: "Soccer",      formUrl: SOCCER_FORM_URL,     color: "#2e9e5a" },
+    { id: "basketball", label: "Basketball",  formUrl: BASKETBALL_FORM_URL, color: "#d4a843" },
+    { id: "volleyball", label: "Volleyball",  formUrl: VOLLEYBALL_FORM_URL, color: "#2e9e5a" },
+    { id: "freeagent",  label: "Free Agent",  formUrl: FREE_AGENT_FORM_URL, color: "#5b8dd9" },
   ];
 
   const activeSport = sports.find(s => s.id === selectedSport)!;
@@ -109,56 +111,142 @@ export default function RegisterPage() {
           Sports Registration
         </h1>
 
-        {/* Sport selector badges */}
-        <div
+        {/* Sport selector — two labeled groups */}
+        <div style={{ marginTop: 28, display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+
+          {/* Team registration group */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.35)",
+              }}
+            >
+              Team Registration
+            </span>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
+              {sports.filter(s => s.id !== "freeagent").map((sport) => {
+                const isActive = selectedSport === sport.id;
+                return (
+                  <button
+                    key={sport.id}
+                    onClick={() => setSelectedSport(sport.id)}
+                    style={{
+                      padding: "10px 20px",
+                      borderRadius: 20,
+                      background: isActive ? activeSport.color : "rgba(255,255,255,0.1)",
+                      border: isActive
+                        ? `2px solid ${activeSport.color}`
+                        : "2px solid rgba(255,255,255,0.2)",
+                      color: isActive ? "#fff" : "rgba(255,255,255,0.6)",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      transition: "all 0.2s ease",
+                      fontFamily: "inherit",
+                      letterSpacing: "0.02em",
+                      boxShadow: isActive ? `0 4px 16px ${activeSport.color}66` : "none",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        (e.target as HTMLElement).style.background = "rgba(255,255,255,0.15)";
+                        (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.3)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        (e.target as HTMLElement).style.background = "rgba(255,255,255,0.1)";
+                        (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.2)";
+                      }
+                    }}
+                  >
+                    {sport.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", maxWidth: 360 }}>
+            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.1)" }} />
+            <span style={{ fontSize: 10, color: "rgba(255,255,255,0.2)", letterSpacing: "0.1em", textTransform: "uppercase" }}>or</span>
+            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.1)" }} />
+          </div>
+
+          {/* Free Agent group */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "rgba(91,141,217,0.7)",
+              }}
+            >
+              No Team? Play as a Free Agent
+            </span>
+            {(() => {
+              const sport = sports.find(s => s.id === "freeagent")!;
+              const isActive = selectedSport === "freeagent";
+              return (
+                <button
+                  onClick={() => setSelectedSport("freeagent")}
+                  style={{
+                    padding: "10px 24px",
+                    borderRadius: 20,
+                    background: isActive ? sport.color : "rgba(91,141,217,0.12)",
+                    border: isActive
+                      ? `2px solid ${sport.color}`
+                      : "2px solid rgba(91,141,217,0.35)",
+                    color: isActive ? "#fff" : "rgba(91,141,217,0.85)",
+                    fontSize: 14,
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    fontFamily: "inherit",
+                    letterSpacing: "0.02em",
+                    boxShadow: isActive ? `0 4px 16px ${sport.color}66` : "none",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      (e.target as HTMLElement).style.background = "rgba(91,141,217,0.2)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      (e.target as HTMLElement).style.background = "rgba(91,141,217,0.12)";
+                    }
+                  }}
+                >
+                  Free Agent Sign-Up
+                </button>
+              );
+            })()}
+          </div>
+        </div>
+
+        {/* Contextual description */}
+        <p
           style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: 10,
-            marginTop: 24,
-            flexWrap: "wrap",
+            marginTop: 14,
+            color: "rgba(255,255,255,0.5)",
+            fontSize: 13,
+            maxWidth: 460,
+            marginLeft: "auto",
+            marginRight: "auto",
+            lineHeight: 1.6,
+            minHeight: "2.6em",
           }}
         >
-          {sports.map((sport) => {
-            const isActive = selectedSport === sport.id;
-            return (
-              <button
-                key={sport.id}
-                onClick={() => setSelectedSport(sport.id)}
-                style={{
-                  padding: "10px 20px",
-                  borderRadius: 20,
-                  background: isActive ? activeSport.color : "rgba(255,255,255,0.1)",
-                  border: isActive
-                    ? `2px solid ${activeSport.color}`
-                    : "2px solid rgba(255,255,255,0.2)",
-                  color: isActive ? "#fff" : "rgba(255,255,255,0.6)",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                  fontFamily: "inherit",
-                  letterSpacing: "0.02em",
-                  boxShadow: isActive ? `0 4px 16px ${activeSport.color}66` : "none",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    (e.target as HTMLElement).style.background = "rgba(255,255,255,0.15)";
-                    (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.3)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    (e.target as HTMLElement).style.background = "rgba(255,255,255,0.1)";
-                    (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.2)";
-                  }
-                }}
-              >
-                {sport.label}
-              </button>
-            );
-          })}
-        </div>
+          {selectedSport === "freeagent"
+            ? "Don't have a team or prefer to play solo? Sign up as a free agent and we'll place you with others to compete."
+            : "Register your full team for the sport below. All players must be registered through the same team form."}
+        </p>
       </header>
 
       {/* ── Google Form iframe ── */}
