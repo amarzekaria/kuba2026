@@ -659,7 +659,7 @@ export default function KubaMemphisSite() {
                 <div className="grid gap-3 text-sm">
                   {[
                     { icon: CalendarDays, text: "When: June 29 – July 5, 2026"                 },
-                    { icon: MapPin,       text: "Where: Memphis, TN (venue & hotels TBA)"       },
+                    { icon: MapPin,       text: "Where: Memphis, TN (venue TBA)"                 },
                     { icon: Users,        text: "Who: Open to all — Harari heritage celebrated" },
                   ].map(({ icon: Icon, text }) => (
                     <div key={text} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 dark:bg-white/5 dark:border-white/5">
@@ -701,8 +701,7 @@ export default function KubaMemphisSite() {
             </p>
             <div className="text-sm grid gap-4">
               {[
-                { icon: MapPin,          heading: "Masajid",           body: "Memphis Islamic Center · Midtown Mosque · Masjid al-Rahman" },
-                { icon: BriefcaseBusiness, heading: "Hotels",          body: "To be announced — check back soon." },
+                { icon: MapPin, heading: "Masajid", body: "Memphis Islamic Center · Midtown Mosque · Masjid al-Rahman" },
               ].map(({ icon: Icon, heading, body }) => (
                 <div key={heading} className="flex gap-3">
                   <div className="h-7 w-7 rounded-lg bg-slate-50 border border-slate-100 dark:bg-white/5 dark:border-white/10 grid place-items-center shrink-0 mt-0.5">
@@ -714,6 +713,36 @@ export default function KubaMemphisSite() {
                   </div>
                 </div>
               ))}
+              <div className="flex gap-3">
+                <div className="h-7 w-7 rounded-lg bg-slate-50 border border-slate-100 dark:bg-white/5 dark:border-white/10 grid place-items-center shrink-0 mt-0.5">
+                  <BriefcaseBusiness className="h-3.5 w-3.5 text-blue-600 dark:text-amber-300" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-slate-900 dark:text-white text-sm mb-1.5">Hotels &amp; Stays</p>
+                  <div className="space-y-3">
+                    <div className="rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 p-3">
+                      <p className="text-slate-800 dark:text-white/90 text-sm font-semibold">Townhome Inn &amp; Suites</p>
+                      <p className="text-slate-500 dark:text-white/50 text-xs mt-0.5">2270 N Germantown Pkwy, Cordova, TN</p>
+                      <p className="text-slate-500 dark:text-white/50 text-xs mt-0.5">Discounted rate: Jun 27 – Jul 7, 2026</p>
+                      <p className="text-amber-600 dark:text-amber-400 text-xs font-semibold mt-0.5">Booking cutoff: June 6, 2026</p>
+                      <a href="https://www.ihg.com/redirect?path=rates&brandCode=SP&regionCode=1&localeCode=en&checkInMonthYear=052026&checkInDate=27&checkOutDate=7&checkOutMonthYear=062026&hotelCode=MEMDC&GPC=MPQ&numberOfAdults=1&numberOfRooms=1&adjustMonth=false&showApp=true&monthIndex=00"
+                        target="_blank" rel="noopener noreferrer"
+                        className="inline-block mt-1.5 text-blue-600 dark:text-amber-300 underline hover:text-blue-700 dark:hover:text-amber-200 transition-colors text-xs font-medium">
+                        Book discounted rate →
+                      </a>
+                    </div>
+                    <div className="rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 p-3">
+                      <p className="text-slate-800 dark:text-white/90 text-sm font-semibold">Airbnb — Cordova, TN</p>
+                      <p className="text-slate-500 dark:text-white/50 text-xs mt-0.5">Entire homes near festival venues</p>
+                      <a href="https://www.airbnb.com/s/Cordova--TN/homes?refinement_paths%5B%5D=%2Fhomes&acp_id=68a79d2b-b6e0-4ce9-b65c-e5d5eb175ac7&date_picker_type=calendar&checkin=2026-06-28&checkout=2026-07-05&search_type=filter_change&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2026-05-01&monthly_length=3&monthly_end_date=2026-08-01&price_filter_input_type=2&price_filter_num_nights=7&channel=EXPLORE&place_id=ChIJ2xfKt1ODf4gRsjuBNB_m7OU&query=Cordova%2C%20TN&search_mode=regular_search&ne_lat=35.1898294555983&ne_lng=-89.72995366481399&sw_lat=35.13426840117164&sw_lng=-89.8025812476069&zoom=13.892573090709954&zoom_level=13&search_by_map=true&selected_filter_order%5B%5D=room_types%3AEntire%20home%2Fapt&selected_filter_order%5B%5D=l2_property_type_ids%3A1&update_selected_filters=false&room_types%5B%5D=Entire%20home%2Fapt"
+                        target="_blank" rel="noopener noreferrer"
+                        className="inline-block mt-1.5 text-blue-600 dark:text-amber-300 underline hover:text-blue-700 dark:hover:text-amber-200 transition-colors text-xs font-medium">
+                        Browse entire homes →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="flex gap-3">
                 <div className="h-7 w-7 rounded-lg bg-slate-50 border border-slate-100 dark:bg-white/5 dark:border-white/10 grid place-items-center shrink-0 mt-0.5">
                   <UtensilsCrossed className="h-3.5 w-3.5 text-amber-600 dark:text-amber-300" />
