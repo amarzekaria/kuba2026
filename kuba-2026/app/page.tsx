@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
+import { useTheme } from "@/lib/useTheme";
 import { motion } from "framer-motion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -124,31 +125,31 @@ function SectionHeading({ icon: Icon, title }: { icon: React.ElementType; title:
 /* ─── SCHEDULE DATA ─── */
 const SCHEDULE = [
   { key: "day1", date: "Mon · Jun 29", items: [
-    { time: "1:00 PM – 5:00 PM",  title: "Opening Day Ceremony",          icon: Users },
-    { time: "6:00 PM – 11:00 PM", title: "Soccer Round 1",                icon: Footprints },
+    { time: "1:00 PM – 5:00 PM",  title: "Opening Day Ceremony",            icon: Users },
+    { time: "6:00 PM – 11:00 PM", title: "Soccer Round 1",                  icon: Footprints },
   ]},
   { key: "day2", date: "Tue · Jun 30", items: [
-    { time: "11:00 AM – 7:00 PM", title: "Volleyball & Basketball Round 1", icon: DribbbleIcon },
-    { time: "8:00 PM – 12:00 AM", title: "Mawlud",                          icon: Star },
+    { time: "11:00 AM – 7:00 PM", title: "Volleyball & Basketball Round 1", icon: DribbbleIcon, address: "995 Early Maxwell Blvd, Memphis, TN 38104" },
+    { time: "8:00 PM – 12:00 AM", title: "Mawlud",                          icon: Star,         address: "3570 Davieshire Dr, Bartlett, TN 38133" },
   ]},
   { key: "day3", date: "Wed · Jul 1", items: [
-    { time: "1:00 PM – 8:00 PM",  title: "Harari Day Ceremony",            icon: HeartHandshake },
+    { time: "1:00 PM – 8:00 PM",  title: "Harari Day Ceremony",             icon: HeartHandshake },
   ]},
   { key: "day4", date: "Thu · Jul 2", items: [
-    { time: "1:00 PM – 8:00 PM",  title: "Ziwariqa",                       icon: UtensilsCrossed },
-    { time: "8:00 PM – 11:00 PM", title: "Soccer Playoff & Final",         icon: Footprints },
+    { time: "1:00 PM – 8:00 PM",  title: "Ziwariqa",                        icon: UtensilsCrossed, address: "6903 Great View Dr N, Memphis, TN 38120" },
+    { time: "8:00 PM – 11:00 PM", title: "Soccer Playoff & Final",          icon: Footprints },
   ]},
   { key: "day5", date: "Fri · Jul 3", items: [
-    { time: "1:00 PM – 5:00 PM",  title: "Mix & Mingle",                   icon: HeartHandshake },
-    { time: "8:00 PM – 12:00 AM", title: "Gala Night 1",                   icon: PartyPopper },
+    { time: "1:00 PM – 5:00 PM",  title: "Mix & Mingle",                    icon: HeartHandshake, address: "901 Cordova Station Ave, Cordova, TN 38018" },
+    { time: "8:00 PM – 12:00 AM", title: "Gala Night 1",                    icon: PartyPopper,    address: "901 Cordova Station Ave, Cordova, TN 38018" },
   ]},
   { key: "day6", date: "Sat · Jul 4", items: [
-    { time: "10:00 AM – 4:00 PM", title: "Basketball Playoff & Finals",    icon: Dribbble },
-    { time: "9:00 PM – 3:00 AM",  title: "Gala Night 2",                   icon: PartyPopper },
+    { time: "10:00 AM – 4:00 PM", title: "Basketball Playoff & Finals",     icon: Dribbble },
+    { time: "9:00 PM – 3:00 AM",  title: "Gala Night 2",                    icon: PartyPopper,    address: "901 Cordova Station Ave, Cordova, TN 38018" },
   ]},
   { key: "day7", date: "Sun · Jul 5", items: [
-    { time: "12:00 AM – 2:00 PM", title: "Townhall Meeting",               icon: BriefcaseBusiness },
-    { time: "2:00 PM – 3:00 PM",  title: "Farewell Ceremony",              icon: BriefcaseBusiness },
+    { time: "12:00 AM – 2:00 PM", title: "Townhall Meeting",                icon: BriefcaseBusiness },
+    { time: "2:00 PM – 3:00 PM",  title: "Farewell Ceremony",               icon: BriefcaseBusiness },
   ]},
 ];
 
@@ -157,7 +158,7 @@ const SCHEDULE = [
 ═══════════════════════════════════════════ */
 export default function KubaMemphisSite() {
   const [open, setOpen] = useState(false);
-  const [isDark, setIsDark] = useState(true);
+  const { isDark, toggle: toggleTheme } = useTheme();
   const [igPostId, setIgPostId]   = useState<string | null>(null);
   const [igLoading, setIgLoading] = useState(true);
   const [igPostId2, setIgPostId2]   = useState<string | null>(null);
@@ -170,9 +171,6 @@ export default function KubaMemphisSite() {
   const DONATE_URL  = "https://checkout.square.site/merchant/MLZ656EDF17D3/checkout/IHXYUZ75LWCKBIOPBYCSWNMF";
   const handleDonate = () => window.open(DONATE_URL, "_blank", "noopener,noreferrer");
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDark);
-  }, [isDark]);
 
   useEffect(() => {
     fetch("/api/instagram-latest")
@@ -241,6 +239,11 @@ export default function KubaMemphisSite() {
                 <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-blue-600 dark:bg-amber-400 rounded-full group-hover:w-full transition-all duration-200" />
               </NavLink>
             ))}
+            <NavLink href="/vendor"
+              className="text-sm font-semibold text-amber-600 hover:text-amber-700 dark:text-amber-300 dark:hover:text-amber-200 transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded px-1 py-0.5">
+              Vendors
+              <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-amber-500 rounded-full group-hover:w-full transition-all duration-200" />
+            </NavLink>
             <div className="hidden lg:flex flex-col items-center gap-0.5">
               <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-sm" asChild>
                 <a href="/register">Sports Registration</a>
@@ -256,7 +259,7 @@ export default function KubaMemphisSite() {
           </nav>
 
           <div className="flex items-center gap-2 shrink-0">
-            <Button variant="ghost" onClick={() => setIsDark(!isDark)} aria-label="Toggle theme"
+            <Button variant="ghost" onClick={toggleTheme} aria-label="Toggle theme"
               className="text-slate-600 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 p-2 rounded-xl">
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
@@ -287,7 +290,7 @@ export default function KubaMemphisSite() {
               </Button>
             </div>
             <div className="flex flex-col gap-5 flex-1">
-              {[["#schedule","Schedule"],["#about","About KUBA"],["#travel","Travel & Venue"],["#contact","Contact"],["/register","Sports Registration"]].map(([href, label]) => (
+              {[["#schedule","Schedule"],["#about","About KUBA"],["#travel","Travel & Venue"],["#contact","Contact"],["/register","Sports Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
                 <div key={href} className="border-b border-slate-100 dark:border-white/5 pb-4">
                   <NavLink href={href} onClick={() => setOpen(false)}
                     className="text-base font-semibold text-slate-700 hover:text-blue-600 dark:text-white/85 dark:hover:text-amber-300 transition-colors">
@@ -301,7 +304,7 @@ export default function KubaMemphisSite() {
                   )}
                 </div>
               ))}
-              <button onClick={() => setIsDark(!isDark)}
+              <button onClick={toggleTheme}
                 className="flex items-center gap-3 text-base font-semibold text-slate-700 dark:text-white/85 hover:text-blue-600 dark:hover:text-amber-300 transition-colors">
                 {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                 {isDark ? "Light Mode" : "Dark Mode"}
@@ -468,28 +471,36 @@ export default function KubaMemphisSite() {
                   <div className="absolute left-5 top-12 bottom-12 w-px bg-gradient-to-b from-slate-300 dark:from-blue-600/50 via-slate-200 dark:via-blue-700/30 to-transparent" />
                 )}
                 <div className="space-y-4">
-                  {items.map(({ time, title, icon: Icon }) => (
-                    <div key={title} className="flex gap-4 group">
-                      <div className="relative z-10 shrink-0 h-10 w-10 rounded-full
-                        bg-blue-50 dark:bg-blue-900/80 border border-blue-200 dark:border-blue-700/50 shadow-sm dark:shadow-lg
-                        grid place-items-center
-                        group-hover:border-blue-400 group-hover:bg-blue-100 dark:group-hover:border-amber-400/60 dark:group-hover:bg-amber-400/10
-                        transition-all duration-200">
-                        <Icon className="h-4 w-4 text-blue-600 dark:text-amber-300" />
-                      </div>
-                      <div className="flex-1 rounded-2xl bg-white dark:bg-blue-900/35 border border-slate-200 dark:border-white/10 p-4 sm:p-5 shadow-sm dark:shadow-none
-                        group-hover:border-blue-300 dark:group-hover:border-amber-400/25 group-hover:-translate-y-0.5
-                        group-hover:shadow-md dark:group-hover:shadow-xl dark:group-hover:shadow-blue-900/40
-                        transition-all duration-200">
-                        <p className="font-semibold text-slate-900 dark:text-white text-base leading-snug">{title}</p>
-                        <div className="flex items-center gap-1.5 mt-1.5">
-                          <Clock className="h-3 w-3 text-blue-500 dark:text-amber-400/70 shrink-0" />
-                          <p className="text-sm text-blue-600 dark:text-amber-300/80 font-medium">{time}</p>
+                  {items.map(({ time, title, icon: Icon, ...rest }) => {
+                    const address = (rest as { address?: string }).address;
+                    return (
+                      <div key={title} className="flex gap-4 group">
+                        <div className="relative z-10 shrink-0 h-10 w-10 rounded-full
+                          bg-blue-50 dark:bg-blue-900/80 border border-blue-200 dark:border-blue-700/50 shadow-sm dark:shadow-lg
+                          grid place-items-center
+                          group-hover:border-blue-400 group-hover:bg-blue-100 dark:group-hover:border-amber-400/60 dark:group-hover:bg-amber-400/10
+                          transition-all duration-200">
+                          <Icon className="h-4 w-4 text-blue-600 dark:text-amber-300" />
                         </div>
-                        <p className="text-xs text-slate-400 dark:text-white/40 mt-0.5">Memphis, TN</p>
+                        <div className="flex-1 rounded-2xl bg-white dark:bg-blue-900/35 border border-slate-200 dark:border-white/10 p-4 sm:p-5 shadow-sm dark:shadow-none
+                          group-hover:border-blue-300 dark:group-hover:border-amber-400/25 group-hover:-translate-y-0.5
+                          group-hover:shadow-md dark:group-hover:shadow-xl dark:group-hover:shadow-blue-900/40
+                          transition-all duration-200">
+                          <p className="font-semibold text-slate-900 dark:text-white text-base leading-snug">{title}</p>
+                          <div className="flex items-center gap-1.5 mt-1.5">
+                            <Clock className="h-3 w-3 text-blue-500 dark:text-amber-400/70 shrink-0" />
+                            <p className="text-sm text-blue-600 dark:text-amber-300/80 font-medium">{time}</p>
+                          </div>
+                          <p className="text-xs mt-0.5 flex items-center gap-1">
+                            <MapPin className="h-2.5 w-2.5 shrink-0" />
+                            {address
+                              ? <span className="text-slate-500 dark:text-white/50">{address}</span>
+                              : <span className="text-slate-400 dark:text-white/30 italic">Location TBA</span>}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </TabsContent>
@@ -843,9 +854,9 @@ export default function KubaMemphisSite() {
               <p className="font-semibold text-slate-900 dark:text-white">Email Us</p>
               <p className="text-slate-500 dark:text-white/55 text-sm mt-0.5">For general inquiries and information</p>
             </div>
-            <a href="mailto:contact@kuba2026.org"
+            <a href="mailto:memphiskuba@gmail.com"
               className="text-blue-600 dark:text-amber-300 font-medium hover:text-blue-700 dark:hover:text-amber-200 transition-colors text-sm">
-              contact@kuba2026.org →
+              memphiskuba@gmail.com →
             </a>
           </div>
 
@@ -899,7 +910,7 @@ export default function KubaMemphisSite() {
           <div>
             <p className="font-semibold text-slate-900 dark:text-white mb-3">Quick Links</p>
             <ul className="grid gap-2">
-              {[["#schedule","Schedule"],["#about","About"],["#travel","Travel & Venue"],["#contact","Contact"],["/register","Sports Registration"]].map(([href, label]) => (
+              {[["#schedule","Schedule"],["#about","About"],["#travel","Travel & Venue"],["#contact","Contact"],["/register","Sports Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
                 <li key={href}>
                   <NavLink href={href} className="hover:text-slate-900 dark:hover:text-white hover:underline transition-colors">{label}</NavLink>
                 </li>
