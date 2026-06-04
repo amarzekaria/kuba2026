@@ -133,7 +133,7 @@ const SCHEDULE = [
     { time: "8:00 PM – 12:00 AM", title: "Mawlud",                          icon: Star,         address: "3570 Davieshire Dr, Bartlett, TN 38133" },
   ]},
   { key: "day3", date: "Wed · Jul 1", items: [
-    { time: "1:00 PM – 8:00 PM",  title: "Harari Day Ceremony",             icon: HeartHandshake },
+    { time: "1:00 PM – 8:00 PM",  title: "Harari Day Ceremony",             icon: HeartHandshake, address: "1800 Berryhill Rd, Cordova, TN 38016" },
   ]},
   { key: "day4", date: "Thu · Jul 2", items: [
     { time: "1:00 PM – 8:00 PM",  title: "Ziwariqa",                        icon: UtensilsCrossed, address: "6903 Great View Dr N, Memphis, TN 38120" },
@@ -246,12 +246,9 @@ export default function KubaMemphisSite() {
             </NavLink>
             <div className="hidden lg:flex flex-col items-center gap-0.5">
               <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-sm" asChild>
-                <a href="/register">Sports Registration</a>
+                <a href="/register">Free Agent Registration</a>
               </Button>
-              <p className="flex items-center gap-1 text-[10px] font-bold text-red-500">
-                <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse inline-block" />
-                Closes May 19!
-              </p>
+              <p className="text-[10px] font-semibold text-slate-400 dark:text-white/40">Team reg closed</p>
             </div>
             <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-sm hidden lg:inline-flex" asChild>
               <NavLink href="#social">Get Updates</NavLink>
@@ -290,17 +287,14 @@ export default function KubaMemphisSite() {
               </Button>
             </div>
             <div className="flex flex-col gap-5 flex-1">
-              {[["#schedule","Schedule"],["#about","About KUBA"],["#travel","Travel & Venue"],["#contact","Contact"],["/register","Sports Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
+              {[["#schedule","Schedule"],["#about","About KUBA"],["#travel","Travel & Venue"],["#contact","Contact"],["/register","Free Agent Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
                 <div key={href} className="border-b border-slate-100 dark:border-white/5 pb-4">
                   <NavLink href={href} onClick={() => setOpen(false)}
                     className="text-base font-semibold text-slate-700 hover:text-blue-600 dark:text-white/85 dark:hover:text-amber-300 transition-colors">
                     {label}
                   </NavLink>
                   {href === "/register" && (
-                    <p className="flex items-center gap-1.5 mt-1 text-xs font-bold text-red-500">
-                      <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse inline-block" />
-                      Registration closes May 19!
-                    </p>
+                    <p className="mt-1 text-xs font-semibold text-slate-400 dark:text-white/40">Team reg closed</p>
                   )}
                 </div>
               ))}
@@ -682,12 +676,9 @@ export default function KubaMemphisSite() {
 
                 <div className="mt-5 flex flex-col gap-2">
                   <Button className="w-full rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-semibold" asChild>
-                    <a href="/register">Register for Sports</a>
+                    <a href="/register">Free Agent Sign-Up</a>
                   </Button>
-                  <p className="flex items-center justify-center gap-1.5 text-xs font-bold text-red-500">
-                    <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse inline-block" />
-                    Registration closes May 19!
-                  </p>
+                  <p className="text-center text-xs font-semibold text-slate-400 dark:text-white/40">Team reg closed</p>
                   <Button onClick={handleDonate}
                     className="w-full rounded-2xl bg-amber-500 text-white hover:bg-amber-400 dark:bg-amber-400 dark:text-blue-950 dark:hover:bg-amber-300 font-bold">
                     Donate to Support
@@ -798,7 +789,7 @@ export default function KubaMemphisSite() {
               { label: "Soccer Finals",            color: "#94a3b8", tbd: true },
               { label: "Opening Day Ceremony",     color: "#94a3b8", tbd: true },
               { label: "Soccer Round 1",           color: "#94a3b8", tbd: true },
-              { label: "Harari Day Ceremony",      color: "#94a3b8", tbd: true },
+              { label: "Harari Day Ceremony",      color: "rgb(2,136,209)" },
               { label: "Basketball Playoff & Finals", color: "#94a3b8", tbd: true },
               { label: "Townhall Meeting",         color: "#94a3b8", tbd: true },
               { label: "Farewell Ceremony",        color: "#94a3b8", tbd: true },
@@ -824,7 +815,7 @@ export default function KubaMemphisSite() {
               { value: "q2", q: "Are the schedule items final?",
                 a: "No. The schedule shown is a preview — final times and locations will be confirmed closer to festival week." },
               { value: "q3", q: "Is there a registration fee?",
-                a: "Details on fees and registration will be announced closer to the event. Sports registration is now open until May 19th." },
+                a: "Team registration has closed. Free agent sign-up is still open — register at the link above." },
             ].map(({ value, q, a }) => (
               <AccordionItem key={value} value={value} className="border-slate-200 dark:border-white/10">
                 <AccordionTrigger className="px-5 sm:px-6 py-4 text-slate-800 dark:text-white hover:text-blue-600 dark:hover:text-amber-300 hover:no-underline font-medium text-left text-sm sm:text-base transition-colors">
@@ -910,7 +901,7 @@ export default function KubaMemphisSite() {
           <div>
             <p className="font-semibold text-slate-900 dark:text-white mb-3">Quick Links</p>
             <ul className="grid gap-2">
-              {[["#schedule","Schedule"],["#about","About"],["#travel","Travel & Venue"],["#contact","Contact"],["/register","Sports Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
+              {[["#schedule","Schedule"],["#about","About"],["#travel","Travel & Venue"],["#contact","Contact"],["/register","Free Agent Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
                 <li key={href}>
                   <NavLink href={href} className="hover:text-slate-900 dark:hover:text-white hover:underline transition-colors">{label}</NavLink>
                 </li>
