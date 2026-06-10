@@ -261,7 +261,7 @@ export default function KubaMemphisSite() {
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
             <Button onClick={handleDonate}
-              className="bg-amber-500 text-white hover:bg-amber-400 dark:bg-amber-400 dark:text-blue-950 dark:hover:bg-amber-300 rounded-2xl font-bold text-sm shadow-lg shadow-amber-400/20 transition-all px-3 sm:px-4">
+              className="hidden md:inline-flex bg-amber-500 text-white hover:bg-amber-400 dark:bg-amber-400 dark:text-blue-950 dark:hover:bg-amber-300 rounded-2xl font-bold text-sm shadow-lg shadow-amber-400/20 transition-all px-3 sm:px-4">
               Donate
             </Button>
             <Button variant="ghost" className="md:hidden text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 p-2"
@@ -725,12 +725,10 @@ export default function KubaMemphisSite() {
                     <div className="rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 p-3">
                       <p className="text-slate-800 dark:text-white/90 text-sm font-semibold">Townhome Inn &amp; Suites</p>
                       <p className="text-slate-500 dark:text-white/50 text-xs mt-0.5">2270 N Germantown Pkwy, Cordova, TN</p>
-                      <p className="text-slate-500 dark:text-white/50 text-xs mt-0.5">Discounted rate: Jun 27 – Jul 7, 2026</p>
-                      <p className="text-amber-600 dark:text-amber-400 text-xs font-semibold mt-0.5">Booking cutoff: June 6, 2026</p>
-                      <a href="https://www.ihg.com/redirect?path=rates&brandCode=SP&regionCode=1&localeCode=en&checkInMonthYear=052026&checkInDate=27&checkOutDate=7&checkOutMonthYear=062026&hotelCode=MEMDC&GPC=MPQ&numberOfAdults=1&numberOfRooms=1&adjustMonth=false&showApp=true&monthIndex=00"
+                      <a href="https://www.ihg.com/spnd/hotels/us/en/cordova/memdc/hoteldetail"
                         target="_blank" rel="noopener noreferrer"
                         className="inline-block mt-1.5 text-blue-600 dark:text-amber-300 underline hover:text-blue-700 dark:hover:text-amber-200 transition-colors text-xs font-medium">
-                        Book discounted rate →
+                        Book now →
                       </a>
                     </div>
                     <div className="rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 p-3">
