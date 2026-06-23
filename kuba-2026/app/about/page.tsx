@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useTheme } from "@/lib/useTheme";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -20,7 +21,7 @@ export default function AboutPage() {
       {/* ── Header ── */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/95 border-b border-slate-200 shadow-sm dark:bg-blue-950/80 dark:border-white/10 dark:shadow-none">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-          <a href="/" className="flex items-center gap-2.5 shrink-0 min-w-0">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 min-w-0">
             <div className="h-9 w-9 rounded-2xl bg-blue-600 dark:bg-white/10 grid place-content-center shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 text-white">
                 <path d="M12 2C7 2 3 6 3 11c0 4 3 7 7 7v4l4-4c4 0 7-3 7-7 0-5-4-9-9-9Z" />
@@ -32,13 +33,13 @@ export default function AboutPage() {
               </p>
               <p className="font-bold text-slate-900 dark:text-white leading-tight text-sm sm:text-base">KUBA 2026 · Memphis</p>
             </div>
-          </a>
+          </Link>
 
           <div className="flex items-center gap-3 shrink-0">
-            <a href="/#schedule"
+            <Link href="/#schedule"
               className="hidden sm:inline text-sm font-semibold text-blue-600 hover:text-blue-700 dark:text-amber-300 dark:hover:text-amber-200 transition-colors">
               ← Schedule
-            </a>
+            </Link>
             <Button variant="ghost" onClick={toggle} aria-label="Toggle theme"
               className="text-slate-600 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 p-2 rounded-xl">
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -124,7 +125,7 @@ export default function AboutPage() {
                 </div>
                 <div className="mt-5 flex flex-col gap-2">
                   <Button className="w-full rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-semibold" asChild>
-                    <a href="/#schedule">View Full Schedule</a>
+                    <Link href="/#schedule">View Full Schedule</Link>
                   </Button>
                   <Button className="w-full rounded-2xl bg-amber-500 text-white hover:bg-amber-400 dark:bg-amber-400 dark:text-blue-950 dark:hover:bg-amber-300 font-bold"
                     onClick={() => window.open(DONATE_URL, "_blank", "noopener,noreferrer")}>
@@ -202,9 +203,9 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500 dark:text-white/50">
           <p>2026 Memphis Harari Co. All rights reserved.</p>
           <div className="flex gap-5">
-            <a href="/" className="hover:text-slate-900 dark:hover:text-white transition-colors">Home</a>
-            <a href="/#schedule" className="hover:text-slate-900 dark:hover:text-white transition-colors">Schedule</a>
-            <a href="/travel" className="hover:text-slate-900 dark:hover:text-white transition-colors">Travel</a>
+            <Link href="/" className="hover:text-slate-900 dark:hover:text-white transition-colors">Home</Link>
+            <Link href="/#schedule" className="hover:text-slate-900 dark:hover:text-white transition-colors">Schedule</Link>
+            <Link href="/travel" className="hover:text-slate-900 dark:hover:text-white transition-colors">Travel</Link>
           </div>
         </div>
       </footer>
