@@ -5,7 +5,6 @@ import { useTheme } from "@/lib/useTheme";
 import { motion } from "framer-motion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import {
   CalendarDays, PartyPopper, DribbbleIcon, Star, MapPin, Instagram, Facebook,
@@ -16,14 +15,14 @@ import {
 /* ─── helpers ─── */
 function getFestivalDay(now: Date) {
   const start = new Date("2026-06-29T00:00:00-05:00");
-  const end   = new Date("2026-07-06T00:00:00-05:00");
+  const end   = new Date("2026-07-05T00:00:00-05:00");
   if (now < start || now >= end) return null;
   return Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 }
 
 function isFestivalLive(now: Date) {
   const start = new Date("2026-06-29T00:00:00-05:00");
-  const end   = new Date("2026-07-06T00:00:00-05:00");
+  const end   = new Date("2026-07-05T00:00:00-05:00");
   return now >= start && now < end;
 }
 
@@ -125,31 +124,29 @@ function SectionHeading({ icon: Icon, title }: { icon: React.ElementType; title:
 /* ─── SCHEDULE DATA ─── */
 const SCHEDULE = [
   { key: "day1", date: "Mon · Jun 29", items: [
-    { time: "1:00 PM – 5:00 PM",  title: "Opening Day Ceremony",            icon: Users },
-    { time: "6:00 PM – 11:00 PM", title: "Soccer Round 1",                  icon: Footprints },
+    { time: "1:00 PM - 5:00 PM",  title: "Opening Ceremony",  icon: Users,      address: "1800 Berryhill Rd, Cordova, TN 38016" },
+    { time: "3:00 PM - 9:00 PM",  title: "Soccer Kickoff",    icon: Footprints, address: "1800 Berryhill Rd, Cordova, TN 38016" },
   ]},
   { key: "day2", date: "Tue · Jun 30", items: [
-    { time: "11:00 AM – 7:00 PM", title: "Volleyball & Basketball Round 1", icon: DribbbleIcon, address: "995 Early Maxwell Blvd, Memphis, TN 38104" },
-    { time: "8:00 PM – 12:00 AM", title: "Mawlud",                          icon: Star,         address: "3570 Davieshire Dr, Bartlett, TN 38133" },
+    { time: "11:30 AM – 7:00 PM", title: "Basketball Round 1", icon: DribbbleIcon, address: "995 Early Maxwell Blvd, Memphis, TN 38104" },
+    { time: "8:00 PM – 2:00 AM", title: "Mawlud",                          icon: Star,         address: "3570 Davieshire Dr, Bartlett, TN 38133" },
   ]},
   { key: "day3", date: "Wed · Jul 1", items: [
-    { time: "1:00 PM – 8:00 PM",  title: "Harari Day Ceremony",             icon: HeartHandshake, address: "1800 Berryhill Rd, Cordova, TN 38016" },
+    { time: "12:00 PM – 8:00 PM", title: "Harari Day Ceremony", icon: HeartHandshake, address: "1800 Berryhill Rd, Cordova, TN 38016" },
   ]},
   { key: "day4", date: "Thu · Jul 2", items: [
-    { time: "1:00 PM – 8:00 PM",  title: "Ziwariqa",                        icon: UtensilsCrossed, address: "6903 Great View Dr N, Memphis, TN 38120" },
-    { time: "8:00 PM – 11:00 PM", title: "Soccer Playoff & Final",          icon: Footprints },
+    { time: "10:00 AM - 1:00 PM", title: "Soccer Semifinals", icon: Footprints,      address: "4223 Macon Rd, Memphis, TN 38122" },
+    { time: "12:00 PM - Sunset", title: "Ziwariqa",          icon: UtensilsCrossed, address: "1800 Berryhill Rd, Cordova, TN 38016" },
+    { time: "9:15 PM - 11:00 PM",  title: "Soccer Finals",     icon: Footprints,      address: "650 E Pkwy S, Memphis, TN 38104" },
   ]},
   { key: "day5", date: "Fri · Jul 3", items: [
-    { time: "1:00 PM – 5:00 PM",  title: "Mix & Mingle",                    icon: HeartHandshake, address: "901 Cordova Station Ave, Cordova, TN 38018" },
-    { time: "8:00 PM – 12:00 AM", title: "Gala Night 1",                    icon: PartyPopper,    address: "901 Cordova Station Ave, Cordova, TN 38018" },
+    { time: "1:00 PM - 5:00 PM",            title: "Mix & Mingle",  icon: HeartHandshake, address: "901 Cordova Station Ave, Cordova, TN 38018" },
+    { time: "8:00 PM – 2:00 AM", title: "Family Night",  icon: PartyPopper,    address: "901 Cordova Station Ave, Cordova, TN 38018" },
   ]},
   { key: "day6", date: "Sat · Jul 4", items: [
-    { time: "10:00 AM – 4:00 PM", title: "Basketball Playoff & Finals",     icon: Dribbble },
-    { time: "9:00 PM – 3:00 AM",  title: "Gala Night 2",                    icon: PartyPopper,    address: "901 Cordova Station Ave, Cordova, TN 38018" },
-  ]},
-  { key: "day7", date: "Sun · Jul 5", items: [
-    { time: "12:00 AM – 2:00 PM", title: "Townhall Meeting",                icon: BriefcaseBusiness },
-    { time: "2:00 PM – 3:00 PM",  title: "Farewell Ceremony",               icon: BriefcaseBusiness },
+    { time: "11:30 AM - 6:00 PM", title: "Basketball Finals", icon: Dribbble,         address: "1800 Berryhill Rd, Cordova, TN 38016" },
+    { time: "1:00 PM - 3:00 PM",  title: "Town Hall",         icon: BriefcaseBusiness, address: "901 Cordova Station Ave, Cordova, TN 38018" },
+    { time: "8:00 PM - 2:00 AM",  title: "Gala Night",        icon: PartyPopper,      address: "901 Cordova Station Ave, Cordova, TN 38018" },
   ]},
 ];
 
@@ -205,11 +202,26 @@ export default function KubaMemphisSite() {
   const stats = useMemo(() => [
     { label: "Expected Attendees", value: "500+" },
     { label: "Communities",        value: "12+"  },
-    { label: "Days of Festivities",value: "7"    },
+    { label: "Days of Festivities",value: "6"    },
   ], []);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-gradient-to-b dark:from-blue-950 dark:via-[#060d1f] dark:to-black dark:text-zinc-50">
+
+      {/* ══ ANNOUNCEMENT STRIP ══ */}
+      {!liveNow && days <= 10 && (
+        <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 dark:from-amber-400 dark:via-orange-400 dark:to-amber-400 text-white dark:text-blue-950">
+          <div className="max-w-6xl mx-auto px-4 py-2.5 text-center">
+            <p className="text-sm font-extrabold uppercase tracking-widest">
+              {days === 0
+                ? "Tonight is the night — KUBA 2026 opens today in Memphis!"
+                : days === 1
+                ? "Tomorrow it begins — KUBA 2026 opens in Memphis!"
+                : `${days} days to go — KUBA 2026 · Memphis · June 29`}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* ══ HEADER ══ */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/95 border-b border-slate-200 shadow-sm dark:bg-blue-950/80 dark:border-white/10 dark:shadow-none">
@@ -232,12 +244,19 @@ export default function KubaMemphisSite() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-4 lg:gap-5">
-            {(["#schedule","#about","#travel","#contact"] as const).map(href => (
+            {([["#schedule","Schedule"],["#contact","Contact"]] as const).map(([href, label]) => (
               <NavLink key={href} href={href}
                 className="text-sm font-semibold text-slate-600 hover:text-slate-900 dark:text-white/80 dark:hover:text-white transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded px-1 py-0.5">
-                {href.slice(1).charAt(0).toUpperCase() + href.slice(2)}
+                {label}
                 <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-blue-600 dark:bg-amber-400 rounded-full group-hover:w-full transition-all duration-200" />
               </NavLink>
+            ))}
+            {([["About","/about"],["Map","/travel"]] as const).map(([label, href]) => (
+              <a key={href} href={href}
+                className="text-sm font-semibold text-slate-600 hover:text-slate-900 dark:text-white/80 dark:hover:text-white transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded px-1 py-0.5">
+                {label}
+                <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-blue-600 dark:bg-amber-400 rounded-full group-hover:w-full transition-all duration-200" />
+              </a>
             ))}
             <NavLink href="/vendor"
               className="text-sm font-semibold text-amber-600 hover:text-amber-700 dark:text-amber-300 dark:hover:text-amber-200 transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded px-1 py-0.5">
@@ -287,7 +306,7 @@ export default function KubaMemphisSite() {
               </Button>
             </div>
             <div className="flex flex-col gap-5 flex-1">
-              {[["#schedule","Schedule"],["#about","About KUBA"],["#travel","Travel & Venue"],["#contact","Contact"],["/register","Free Agent Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
+              {[["#schedule","Schedule"],["#contact","Contact"],["/about","About KUBA"],["/travel","Map"],["/register","Free Agent Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
                 <div key={href} className="border-b border-slate-100 dark:border-white/5 pb-4">
                   <NavLink href={href} onClick={() => setOpen(false)}
                     className="text-base font-semibold text-slate-700 hover:text-blue-600 dark:text-white/85 dark:hover:text-amber-300 transition-colors">
@@ -329,9 +348,12 @@ export default function KubaMemphisSite() {
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
             className="rounded-3xl bg-white/92 backdrop-blur-xl border border-white/60 dark:bg-black/40 dark:border-white/20 p-6 sm:p-8 shadow-2xl flex flex-col">
             <Badge className={`self-start mb-4 px-3 py-1 rounded-full text-sm font-semibold border ${
-              liveNow ? "bg-red-600 text-white border-red-400 animate-pulse"
-                      : "bg-blue-100 text-blue-700 border-blue-300 dark:bg-amber-400/15 dark:text-amber-200 dark:border-amber-300/35"}`}>
-              {liveNow ? "LIVE NOW" : "Coming Soon"}
+              liveNow
+                ? "bg-red-600 text-white border-red-400 animate-pulse"
+                : days <= 7
+                ? "bg-amber-500 text-white border-amber-400 animate-pulse"
+                : "bg-blue-100 text-blue-700 border-blue-300 dark:bg-amber-400/15 dark:text-amber-200 dark:border-amber-300/35"}`}>
+              {liveNow ? "LIVE NOW" : days <= 7 ? `${days} Days Away` : "Coming Soon"}
             </Badge>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
@@ -340,12 +362,14 @@ export default function KubaMemphisSite() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-700 dark:text-white/85 leading-relaxed">
-              Celebrate unity, heritage, and community with a week of sports, music, food, and cultural showcases.
+              {days <= 7 && !liveNow
+                ? "Memphis is ready. The 28th Harari Sport & Cultural Festival kicks off June 29 — six days of sports, culture, music, food, and community you will not forget."
+                : "Celebrate unity, heritage, and community with a week of sports, music, food, and cultural showcases."}
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
               {[
-                { icon: CalendarDays, text: "June 29 – July 5" },
+                { icon: CalendarDays, text: "June 29 – July 4" },
                 { icon: MapPin,       text: "Memphis, TN"       },
                 { icon: Users,        text: "Harari Community"  },
               ].map(({ icon: Icon, text }) => (
@@ -356,11 +380,11 @@ export default function KubaMemphisSite() {
             </div>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <Button className="rounded-2xl bg-amber-500 text-white hover:bg-amber-400 dark:bg-amber-400 dark:text-blue-950 dark:hover:bg-amber-300 font-bold shadow-lg shadow-amber-400/20" asChild>
-                <NavLink href="#contact">Get Notified</NavLink>
+              <Button variant="outline" className="rounded-2xl border-blue-300 bg-white text-blue-700 hover:bg-blue-50 dark:border-blue-400/40 dark:bg-blue-500/10 dark:text-blue-300 dark:hover:bg-blue-500/20" asChild>
+                <NavLink href="#schedule">Schedule</NavLink>
               </Button>
               <Button variant="outline" className="rounded-2xl border-slate-300 bg-white text-slate-700 hover:bg-slate-50 dark:border-white/25 dark:bg-white/10 dark:text-white dark:hover:bg-white/20" asChild>
-                <NavLink href="#about">Learn More</NavLink>
+                <a href="/travel">Map</a>
               </Button>
             </div>
           </motion.div>
@@ -376,6 +400,7 @@ export default function KubaMemphisSite() {
                 <span className="font-semibold text-slate-900 dark:text-white text-sm sm:text-base">
                   {liveNow ? "Today's Festival Schedule"
                     : (days === 0 && hours === 0 && minutes === 0 && seconds === 0) ? "Festival Started"
+                    : days <= 7 ? "Memphis, the wait is almost over"
                     : "Countdown to June 29, 2026"}
                 </span>
               </div>
@@ -394,7 +419,7 @@ export default function KubaMemphisSite() {
                       </div>
                     ))}
                   </div>
-                  <p className="mt-3 text-xs text-slate-400 dark:text-white/50 text-center">June 29 – July 5, 2026 · Memphis</p>
+                  <p className="mt-3 text-xs text-slate-400 dark:text-white/50 text-center">June 29 – July 4, 2026 · Memphis</p>
                 </>
               )}
             </div>
@@ -432,12 +457,12 @@ export default function KubaMemphisSite() {
       <section id="schedule" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <SectionHeading icon={CalendarDays} title="Schedule" />
         <p className="text-sm text-slate-500 dark:text-white/50 mb-8 ml-12">
-          <span className="text-slate-700 dark:text-white/70 font-medium">*NOTE*</span> Locations will be announced as the final date approaches.
+          All times are in Central Standard Time (CST). Follow us on Instagram for any last-minute updates.
         </p>
 
         <Tabs defaultValue={festivalDay ? `day${festivalDay}` : "day1"} className="w-full">
           <div className="overflow-x-auto scrollbar-hide -mx-1 px-1 pb-1">
-            <TabsList className="grid grid-cols-7 gap-1 bg-slate-100 border border-slate-200 dark:bg-blue-950/70 dark:border-white/10 rounded-2xl p-1.5 w-full !h-auto">
+            <TabsList className="grid grid-cols-6 gap-1 bg-slate-100 border border-slate-200 dark:bg-blue-950/70 dark:border-white/10 rounded-2xl p-1.5 w-full !h-auto">
               {SCHEDULE.map(({ key, date }, i) => (
                 <TabsTrigger key={key} value={key}
                   className="!h-auto flex flex-col items-center justify-center gap-0.5 px-1 py-3 rounded-xl
@@ -617,217 +642,6 @@ export default function KubaMemphisSite() {
         </div>
       </section>
 
-      {/* ══ ABOUT ══ */}
-      <section id="about" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-        <div className="relative">
-          <div className="absolute -inset-x-20 -inset-y-10 bg-blue-100/40 dark:bg-blue-900/10 rounded-3xl blur-3xl -z-10" />
-
-          <div className="grid lg:grid-cols-5 gap-8 items-start">
-            <div className="lg:col-span-3">
-              <SectionHeading icon={Users} title="What is KUBA?" />
-              <p className="text-slate-700 dark:text-white/80 leading-relaxed mt-4 text-sm sm:text-base">
-                KUBA (the Harari Sport &amp; Cultural Festival) is an annual gathering of the global Harari community
-                featuring sports tournaments, cultural showcases, music, fashion, food, and family-friendly programming.
-                It celebrates Harari heritage and unity while welcoming friends and neighbors from all backgrounds.
-                Inshallah, Memphis will proudly host the 28th KUBA from June 29 – July 5, 2026.
-              </p>
-
-              <div className="mt-6 grid sm:grid-cols-2 gap-3">
-                {[
-                  { icon: Users,         title: "Family-Friendly",        desc: "Youth clinics, storytelling, and kid-friendly events all week." },
-                  { icon: Star,          title: "Cultural Showcase",       desc: "Traditional music, dance, fashion, and language sessions." },
-                  { icon: HeartHandshake,title: "Community & Networking",  desc: "Connect with Harari families and organizations from across America." },
-                  { icon: Footprints,    title: "Sports & Awards",         desc: "Competitive soccer, basketball tournaments, and more." },
-                ].map(({ icon: Icon, title, desc }) => (
-                  <div key={title}
-                    className="rounded-2xl bg-white dark:bg-blue-900/30 border border-slate-200 dark:border-white/10 p-4 shadow-sm dark:shadow-none
-                      hover:-translate-y-0.5 hover:border-blue-300 dark:hover:border-amber-400/25 hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-blue-900/40
-                      transition-all duration-200">
-                    <div className="flex items-center gap-2.5 mb-2">
-                      <div className="h-7 w-7 rounded-lg bg-blue-50 dark:bg-amber-400/15 border border-blue-200 dark:border-amber-400/20 grid place-items-center shrink-0">
-                        <Icon className="h-3.5 w-3.5 text-blue-600 dark:text-amber-300" />
-                      </div>
-                      <p className="font-semibold text-slate-900 dark:text-white text-sm">{title}</p>
-                    </div>
-                    <p className="text-sm text-slate-600 dark:text-white/65 leading-relaxed">{desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="lg:col-span-2">
-              <div className="rounded-2xl bg-white dark:bg-blue-900/30 border border-slate-200 dark:border-white/10 p-5 sm:p-6 shadow-sm dark:shadow-none">
-                <p className="font-bold text-slate-900 dark:text-white text-base mb-4 flex items-center gap-2">
-                  <span className="h-1.5 w-5 rounded-full bg-blue-600 dark:bg-amber-400 inline-block" />
-                  Key Info
-                </p>
-                <div className="grid gap-3 text-sm">
-                  {[
-                    { icon: CalendarDays, text: "When: June 29 – July 5, 2026"                 },
-                    { icon: MapPin,       text: "Where: Memphis, TN (venue TBA)"                 },
-                    { icon: Users,        text: "Who: Open to all — Harari heritage celebrated" },
-                  ].map(({ icon: Icon, text }) => (
-                    <div key={text} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 dark:bg-white/5 dark:border-white/5">
-                      <Icon className="h-4 w-4 text-blue-600 dark:text-amber-300 mt-0.5 shrink-0" />
-                      <span className="text-slate-700 dark:text-white/80">{text}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-5 flex flex-col gap-2">
-                  <Button className="w-full rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-semibold" asChild>
-                    <a href="/register">Free Agent Sign-Up</a>
-                  </Button>
-                  <p className="text-center text-xs font-semibold text-slate-400 dark:text-white/40">Team reg closed</p>
-                  <Button onClick={handleDonate}
-                    className="w-full rounded-2xl bg-amber-500 text-white hover:bg-amber-400 dark:bg-amber-400 dark:text-blue-950 dark:hover:bg-amber-300 font-bold">
-                    Donate to Support
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══ TRAVEL & VENUE ══ */}
-      <section id="travel" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-        <SectionHeading icon={MapPin} title="Travel & Venue" />
-        <p className="text-slate-500 dark:text-white/50 text-sm mb-8 ml-12">Everything you need to plan your trip to Memphis.</p>
-
-        <div className="grid lg:grid-cols-2 gap-6 mb-10">
-          <div className="rounded-2xl bg-white dark:bg-blue-900/30 border border-slate-200 dark:border-white/10 p-5 sm:p-6 shadow-sm dark:shadow-none">
-            <p className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-              <span className="h-1.5 w-5 rounded-full bg-amber-500 dark:bg-amber-400 inline-block" />
-              Getting to Memphis
-            </p>
-            <div className="text-sm grid gap-4">
-              {[
-                { icon: MapPin, heading: "Masajid", body: "Memphis Islamic Center · Midtown Mosque · Masjid al-Rahman" },
-              ].map(({ icon: Icon, heading, body }) => (
-                <div key={heading} className="flex gap-3">
-                  <div className="h-7 w-7 rounded-lg bg-slate-50 border border-slate-100 dark:bg-white/5 dark:border-white/10 grid place-items-center shrink-0 mt-0.5">
-                    <Icon className="h-3.5 w-3.5 text-blue-600 dark:text-amber-300" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-slate-900 dark:text-white text-sm mb-0.5">{heading}</p>
-                    <p className="text-slate-600 dark:text-white/65 text-sm">{body}</p>
-                  </div>
-                </div>
-              ))}
-              <div className="flex gap-3">
-                <div className="h-7 w-7 rounded-lg bg-slate-50 border border-slate-100 dark:bg-white/5 dark:border-white/10 grid place-items-center shrink-0 mt-0.5">
-                  <BriefcaseBusiness className="h-3.5 w-3.5 text-blue-600 dark:text-amber-300" />
-                </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-slate-900 dark:text-white text-sm mb-1.5">Hotels &amp; Stays</p>
-                  <div className="space-y-3">
-                    <div className="rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 p-3">
-                      <p className="text-slate-800 dark:text-white/90 text-sm font-semibold">Townhome Inn &amp; Suites</p>
-                      <p className="text-slate-500 dark:text-white/50 text-xs mt-0.5">2270 N Germantown Pkwy, Cordova, TN</p>
-                      <a href="https://www.ihg.com/spnd/hotels/us/en/cordova/memdc/hoteldetail"
-                        target="_blank" rel="noopener noreferrer"
-                        className="inline-block mt-1.5 text-blue-600 dark:text-amber-300 underline hover:text-blue-700 dark:hover:text-amber-200 transition-colors text-xs font-medium">
-                        Book now →
-                      </a>
-                    </div>
-                    <div className="rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 p-3">
-                      <p className="text-slate-800 dark:text-white/90 text-sm font-semibold">Airbnb — Cordova, TN</p>
-                      <p className="text-slate-500 dark:text-white/50 text-xs mt-0.5">Entire homes near festival venues</p>
-                      <a href="https://www.airbnb.com/s/Cordova--TN/homes?refinement_paths%5B%5D=%2Fhomes&acp_id=68a79d2b-b6e0-4ce9-b65c-e5d5eb175ac7&date_picker_type=calendar&checkin=2026-06-28&checkout=2026-07-05&search_type=filter_change&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2026-05-01&monthly_length=3&monthly_end_date=2026-08-01&price_filter_input_type=2&price_filter_num_nights=7&channel=EXPLORE&place_id=ChIJ2xfKt1ODf4gRsjuBNB_m7OU&query=Cordova%2C%20TN&search_mode=regular_search&ne_lat=35.1898294555983&ne_lng=-89.72995366481399&sw_lat=35.13426840117164&sw_lng=-89.8025812476069&zoom=13.892573090709954&zoom_level=13&search_by_map=true&selected_filter_order%5B%5D=room_types%3AEntire%20home%2Fapt&selected_filter_order%5B%5D=l2_property_type_ids%3A1&update_selected_filters=false&room_types%5B%5D=Entire%20home%2Fapt"
-                        target="_blank" rel="noopener noreferrer"
-                        className="inline-block mt-1.5 text-blue-600 dark:text-amber-300 underline hover:text-blue-700 dark:hover:text-amber-200 transition-colors text-xs font-medium">
-                        Browse entire homes →
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="h-7 w-7 rounded-lg bg-slate-50 border border-slate-100 dark:bg-white/5 dark:border-white/10 grid place-items-center shrink-0 mt-0.5">
-                  <UtensilsCrossed className="h-3.5 w-3.5 text-amber-600 dark:text-amber-300" />
-                </div>
-                <div>
-                  <p className="font-semibold text-slate-900 dark:text-white text-sm mb-0.5">Halal Food &amp; Coffee</p>
-                  <a href="https://www.google.com/maps/d/u/0/viewer?mid=1jIl3kd9BTMa3HDpAfoI_n_eGs5cqesTQ&ll=35.14770656054214%2C-89.85940621849579&z=11"
-                    target="_blank" rel="noopener noreferrer"
-                    className="text-blue-600 dark:text-amber-300 underline hover:text-blue-700 dark:hover:text-amber-200 transition-colors">
-                    View on Google Maps →
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Venue map */}
-        <div className="rounded-2xl bg-white dark:bg-blue-900/30 border border-slate-200 dark:border-white/10 p-5 sm:p-6 mb-10 shadow-sm dark:shadow-none">
-          <p className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-            <span className="h-1.5 w-5 rounded-full bg-amber-500 dark:bg-amber-400 inline-block" />
-            Venue Map
-          </p>
-          <div style={{ height: 420, overflow: "hidden", borderRadius: 12, border: "1px solid rgba(0,0,0,0.08)" }}>
-            <iframe
-              src="https://www.google.com/maps/d/embed?mid=1rheZ4vzCo6ZqkzVfxcRx6fe-04SvUec&hl=en&ehbc=2E312F"
-              width="100%"
-              style={{ display: "block", border: 0, height: 535, marginTop: -85 }}
-              allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-              title="KUBA 2026 Venue Map"
-            />
-          </div>
-
-          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
-            {[
-              { label: "Basketball Round 1",       color: "#f97316" },
-              { label: "Mawlud",                   color: "#22c55e" },
-              { label: "Ziwariqa + Volleyball",    color: "#eab308" },
-              { label: "Mix & Mingle",             color: "#a855f7" },
-              { label: "Gala Night",               color: "#a855f7" },
-              { label: "Family Night",             color: "#a855f7" },
-              { label: "Soccer Finals",            color: "#94a3b8", tbd: true },
-              { label: "Opening Day Ceremony",     color: "#94a3b8", tbd: true },
-              { label: "Soccer Round 1",           color: "#94a3b8", tbd: true },
-              { label: "Harari Day Ceremony",      color: "rgb(2,136,209)" },
-              { label: "Basketball Playoff & Finals", color: "#94a3b8", tbd: true },
-              { label: "Townhall Meeting",         color: "#94a3b8", tbd: true },
-              { label: "Farewell Ceremony",        color: "#94a3b8", tbd: true },
-            ].map(({ label, color, tbd }) => (
-              <span key={label} className="flex items-center gap-1.5">
-                <span style={{ width: 8, height: 8, borderRadius: "50%", background: color, display: "inline-block", flexShrink: 0 }} />
-                <span className={`text-xs ${tbd ? "text-slate-400 dark:text-white/30 italic" : "text-slate-600 dark:text-white/55"}`}>
-                  {label}{tbd ? " (TBD)" : ""}
-                </span>
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* FAQ */}
-        <div>
-          <p className="font-bold text-slate-900 dark:text-white text-xl mb-4">FAQ</p>
-          <Accordion type="single" collapsible
-            className="bg-white dark:bg-blue-900/30 rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-sm dark:shadow-none">
-            {[
-              { value: "q1", q: "Is this event open to everyone?",
-                a: "Yes. While KUBA celebrates Harari heritage, all respectful attendees are warmly welcome." },
-              { value: "q2", q: "Are the schedule items final?",
-                a: "No. The schedule shown is a preview — final times and locations will be confirmed closer to festival week." },
-              { value: "q3", q: "Is there a registration fee?",
-                a: "Team registration has closed. Free agent sign-up is still open — register at the link above." },
-            ].map(({ value, q, a }) => (
-              <AccordionItem key={value} value={value} className="border-slate-200 dark:border-white/10">
-                <AccordionTrigger className="px-5 sm:px-6 py-4 text-slate-800 dark:text-white hover:text-blue-600 dark:hover:text-amber-300 hover:no-underline font-medium text-left text-sm sm:text-base transition-colors">
-                  {q}
-                </AccordionTrigger>
-                <AccordionContent className="px-5 sm:px-6 pb-4 pt-0 text-slate-600 dark:text-white/65 text-sm leading-relaxed">
-                  {a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-
       {/* ══ CONTACT ══ */}
       <section id="contact" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <SectionHeading icon={Mail} title="Contact" />
@@ -899,7 +713,7 @@ export default function KubaMemphisSite() {
           <div>
             <p className="font-semibold text-slate-900 dark:text-white mb-3">Quick Links</p>
             <ul className="grid gap-2">
-              {[["#schedule","Schedule"],["#about","About"],["#travel","Travel & Venue"],["#contact","Contact"],["/register","Free Agent Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
+              {[["#schedule","Schedule"],["#contact","Contact"],["/about","About KUBA"],["/travel","Map"],["/register","Free Agent Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
                 <li key={href}>
                   <NavLink href={href} className="hover:text-slate-900 dark:hover:text-white hover:underline transition-colors">{label}</NavLink>
                 </li>
