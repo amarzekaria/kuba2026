@@ -9,7 +9,7 @@ const VENUES = [
   {
     name: "Berryhill Sports Complex",
     address: "1800 Berryhill Rd, Cordova, TN 38016",
-    events: ["Opening Ceremony (Day 1)", "Soccer Kickoff (Day 1)", "Harari Day Ceremony (Day 3)", "Ziwariqa (Day 4)", "Basketball Finals (Day 6)"],
+    events: ["Opening Ceremony (Day 1)", "Soccer Kickoff (Day 1)", "Harari Day Ceremony (Day 3)", "Basketball Finals (Day 6)"],
     mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016",
   },
   {
@@ -23,6 +23,12 @@ const VENUES = [
     address: "3570 Davieshire Dr, Bartlett, TN 38133",
     events: ["Mawlud (Day 2)"],
     mapsUrl: "https://maps.google.com/?q=3570+Davieshire+Dr+Bartlett+TN+38133",
+  },
+  {
+    name: "Shelby Farms Park – Jones Pavilion",
+    address: "6903 Great View Dr N, Memphis, TN 38134",
+    events: ["Ziwariqa (Day 4)"],
+    mapsUrl: "https://maps.google.com/?q=6903+Great+View+Dr+N+Memphis+TN+38134",
   },
   {
     name: "Soccer Semifinals Field",
