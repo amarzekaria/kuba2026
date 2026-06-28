@@ -11,8 +11,8 @@ const DAYS = [
     label: "Day 1",
     date: "Mon · Jun 29",
     events: [
-      { time: "1:00 PM – 5:00 PM", title: "Opening Ceremony", venue: "Berryhill Sports Complex", address: "1800 Berryhill Rd, Cordova, TN 38016", mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
-      { time: "3:00 PM – 9:00 PM", title: "Soccer Kickoff",   venue: "Berryhill Sports Complex", address: "1800 Berryhill Rd, Cordova, TN 38016", mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
+      { time: "1:00 PM – 5:00 PM", title: "Opening Ceremony", venue: "Cordova High", address: "1800 Berryhill Rd, Cordova, TN 38016", mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
+      { time: "3:00 PM – 9:00 PM", title: "Soccer Kickoff",   venue: "Cordova High", address: "1800 Berryhill Rd, Cordova, TN 38016", mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
     ],
   },
   {
@@ -29,7 +29,7 @@ const DAYS = [
     label: "Day 3",
     date: "Wed · Jul 1",
     events: [
-      { time: "12:00 PM – 8:00 PM", title: "Harari Day Ceremony", venue: "Berryhill Sports Complex", address: "1800 Berryhill Rd, Cordova, TN 38016", mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
+      { time: "12:00 PM – 8:00 PM", title: "Harari Day Ceremony", venue: "Cordova High", address: "1800 Berryhill Rd, Cordova, TN 38016", mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
     ],
   },
   {
@@ -39,7 +39,7 @@ const DAYS = [
     events: [
       { time: "10:00 AM – 1:00 PM", title: "Soccer Semifinals",  venue: "Soccer Semifinals Field",           address: "4223 Macon Rd, Memphis, TN 38122",        mapsUrl: "https://maps.google.com/?q=4223+Macon+Rd+Memphis+TN+38122" },
       { time: "12:00 PM – Sunset",  title: "Ziwariqa",           venue: "Shelby Farms Park – Jones Pavilion", address: "6903 Great View Dr N, Memphis, TN 38134", mapsUrl: "https://maps.google.com/?q=6903+Great+View+Dr+N+Memphis+TN+38134" },
-      { time: "9:15 PM – 11:00 PM", title: "Soccer Finals",      venue: "Christian Brothers University",     address: "650 E Pkwy S, Memphis, TN 38104",         mapsUrl: "https://maps.google.com/?q=650+E+Pkwy+S+Memphis+TN+38104" },
+      { time: "9:15 PM – 11:00 PM", title: "Soccer Finals",      venue: "Christian Brothers University",     address: "2440 Central Ave, Memphis, TN 38104",    mapsUrl: "https://maps.google.com/?q=2440+Central+Ave+Memphis+TN+38104" },
     ],
   },
   {
@@ -47,8 +47,8 @@ const DAYS = [
     label: "Day 5",
     date: "Fri · Jul 3",
     events: [
-      { time: "1:00 PM – 5:00 PM", title: "Mix & Mingle", venue: "Cordova Station", address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
-      { time: "8:00 PM – 2:00 AM", title: "Family Night", venue: "Cordova Station", address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+      { time: "1:00 PM – 5:00 PM", title: "Mix & Mingle", venue: "The Esplanade", address: "901 The Esplanade Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+      { time: "8:00 PM – 2:00 AM", title: "Family Night", venue: "The Esplanade", address: "901 The Esplanade Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
     ],
   },
   {
@@ -56,9 +56,9 @@ const DAYS = [
     label: "Day 6",
     date: "Sat · Jul 4",
     events: [
-      { time: "11:30 AM – 6:00 PM", title: "Basketball Finals", venue: "Berryhill Sports Complex", address: "1800 Berryhill Rd, Cordova, TN 38016",      mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
-      { time: "1:00 PM – 3:00 PM",  title: "Town Hall",         venue: "Cordova Station",          address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
-      { time: "8:00 PM – 2:00 AM",  title: "Gala Night",        venue: "Cordova Station",          address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+      { time: "11:30 AM – 6:00 PM", title: "Basketball Finals", venue: "Cordova High", address: "1800 Berryhill Rd, Cordova, TN 38016",      mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
+      { time: "1:00 PM – 3:00 PM",  title: "Town Hall",         venue: "The Esplanade",          address: "901 The Esplanade Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+      { time: "8:00 PM – 2:00 AM",  title: "Gala Night",        venue: "The Esplanade",          address: "901 The Esplanade Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
     ],
   },
 ];
