@@ -3,50 +3,63 @@
 import React from "react";
 import Link from "next/link";
 import { useTheme } from "@/lib/useTheme";
-import { MapPin, BriefcaseBusiness, UtensilsCrossed, Sun, Moon, Users } from "lucide-react";
+import { MapPin, BriefcaseBusiness, UtensilsCrossed, Sun, Moon, Users, Clock } from "lucide-react";
 
-const VENUES = [
+const DAYS = [
   {
-    name: "Berryhill Sports Complex",
-    address: "1800 Berryhill Rd, Cordova, TN 38016",
-    events: ["Opening Ceremony (Day 1)", "Soccer Kickoff (Day 1)", "Harari Day Ceremony (Day 3)", "Basketball Finals (Day 6)"],
-    mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016",
+    key: "day1",
+    label: "Day 1",
+    date: "Mon · Jun 29",
+    events: [
+      { time: "1:00 PM – 5:00 PM", title: "Opening Ceremony", venue: "Berryhill Sports Complex", address: "1800 Berryhill Rd, Cordova, TN 38016", mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
+      { time: "3:00 PM – 9:00 PM", title: "Soccer Kickoff",   venue: "Berryhill Sports Complex", address: "1800 Berryhill Rd, Cordova, TN 38016", mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
+    ],
   },
   {
-    name: "Basketball Venue",
-    address: "995 Early Maxwell Blvd, Memphis, TN 38104",
-    events: ["Basketball Round 1 (Day 2)"],
-    mapsUrl: "https://maps.google.com/?q=995+Early+Maxwell+Blvd+Memphis+TN+38104",
+    key: "day2",
+    label: "Day 2",
+    date: "Tue · Jun 30",
+    events: [
+      { time: "11:30 AM – 7:00 PM", title: "Basketball Round 1", venue: "Basketball Venue",  address: "995 Early Maxwell Blvd, Memphis, TN 38104", mapsUrl: "https://maps.google.com/?q=995+Early+Maxwell+Blvd+Memphis+TN+38104" },
+      { time: "8:00 PM – 2:00 AM",  title: "Mawlud",             venue: "Mawlud Venue",       address: "3570 Davieshire Dr, Bartlett, TN 38133",  mapsUrl: "https://maps.google.com/?q=3570+Davieshire+Dr+Bartlett+TN+38133" },
+    ],
   },
   {
-    name: "Mawlud Venue",
-    address: "3570 Davieshire Dr, Bartlett, TN 38133",
-    events: ["Mawlud (Day 2)"],
-    mapsUrl: "https://maps.google.com/?q=3570+Davieshire+Dr+Bartlett+TN+38133",
+    key: "day3",
+    label: "Day 3",
+    date: "Wed · Jul 1",
+    events: [
+      { time: "12:00 PM – 8:00 PM", title: "Harari Day Ceremony", venue: "Berryhill Sports Complex", address: "1800 Berryhill Rd, Cordova, TN 38016", mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
+    ],
   },
   {
-    name: "Shelby Farms Park – Jones Pavilion",
-    address: "6903 Great View Dr N, Memphis, TN 38134",
-    events: ["Ziwariqa (Day 4)"],
-    mapsUrl: "https://maps.google.com/?q=6903+Great+View+Dr+N+Memphis+TN+38134",
+    key: "day4",
+    label: "Day 4",
+    date: "Thu · Jul 2",
+    events: [
+      { time: "10:00 AM – 1:00 PM", title: "Soccer Semifinals",  venue: "Soccer Semifinals Field",           address: "4223 Macon Rd, Memphis, TN 38122",        mapsUrl: "https://maps.google.com/?q=4223+Macon+Rd+Memphis+TN+38122" },
+      { time: "12:00 PM – Sunset",  title: "Ziwariqa",           venue: "Shelby Farms Park – Jones Pavilion", address: "6903 Great View Dr N, Memphis, TN 38134", mapsUrl: "https://maps.google.com/?q=6903+Great+View+Dr+N+Memphis+TN+38134" },
+      { time: "9:15 PM – 11:00 PM", title: "Soccer Finals",      venue: "Christian Brothers University",     address: "650 E Pkwy S, Memphis, TN 38104",         mapsUrl: "https://maps.google.com/?q=650+E+Pkwy+S+Memphis+TN+38104" },
+    ],
   },
   {
-    name: "Soccer Semifinals Field",
-    address: "4223 Macon Rd, Memphis, TN 38122",
-    events: ["Soccer Semifinals (Day 4)"],
-    mapsUrl: "https://maps.google.com/?q=4223+Macon+Rd+Memphis+TN+38122",
+    key: "day5",
+    label: "Day 5",
+    date: "Fri · Jul 3",
+    events: [
+      { time: "1:00 PM – 5:00 PM", title: "Mix & Mingle", venue: "Cordova Station", address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+      { time: "8:00 PM – 2:00 AM", title: "Family Night", venue: "Cordova Station", address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+    ],
   },
   {
-    name: "Christian Brothers University",
-    address: "650 E Pkwy S, Memphis, TN 38104",
-    events: ["Soccer Finals (Day 4)"],
-    mapsUrl: "https://maps.google.com/?q=650+E+Pkwy+S+Memphis+TN+38104",
-  },
-  {
-    name: "Cordova Station",
-    address: "901 Cordova Station Ave, Cordova, TN 38018",
-    events: ["Mix & Mingle (Day 5)", "Family Night (Day 5)", "Town Hall (Day 6)", "Gala Night (Day 6)"],
-    mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018",
+    key: "day6",
+    label: "Day 6",
+    date: "Sat · Jul 4",
+    events: [
+      { time: "11:30 AM – 6:00 PM", title: "Basketball Finals", venue: "Berryhill Sports Complex", address: "1800 Berryhill Rd, Cordova, TN 38016",      mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
+      { time: "1:00 PM – 3:00 PM",  title: "Town Hall",         venue: "Cordova Station",          address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+      { time: "8:00 PM – 2:00 AM",  title: "Gala Night",        venue: "Cordova Station",          address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+    ],
   },
 ];
 
@@ -120,36 +133,48 @@ export default function TravelPage() {
           </div>
         </section>
 
-        {/* ── Venue Addresses ── */}
+        {/* ── Schedule by Day ── */}
         <section>
-          <div className="flex items-center gap-3 mb-5">
+          <div className="flex items-center gap-3 mb-6">
             <div className="h-9 w-9 rounded-xl bg-blue-100 border border-blue-200 dark:bg-amber-400/15 dark:border-amber-400/25 grid place-items-center shrink-0">
-              <MapPin className="h-4 w-4 text-blue-600 dark:text-amber-300" />
+              <Clock className="h-4 w-4 text-blue-600 dark:text-amber-300" />
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">All Venue Addresses</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Events by Day</h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {VENUES.map((v) => (
-              <div key={v.name}
-                className="rounded-2xl bg-white dark:bg-blue-900/30 border border-slate-200 dark:border-white/10 p-4 sm:p-5 shadow-sm
-                  hover:-translate-y-0.5 hover:border-blue-300 dark:hover:border-amber-400/25 hover:shadow-md transition-all duration-200 flex flex-col gap-3">
-                <div>
-                  <p className="font-bold text-slate-900 dark:text-white text-sm leading-snug">{v.name}</p>
-                  <p className="text-slate-500 dark:text-white/50 text-xs mt-1">{v.address}</p>
+          <div className="space-y-6">
+            {DAYS.map((day) => (
+              <div key={day.key} className="rounded-2xl bg-white dark:bg-blue-900/30 border border-slate-200 dark:border-white/10 shadow-sm overflow-hidden">
+                {/* Day header */}
+                <div className="px-5 py-3 bg-blue-600 dark:bg-blue-800/60 flex items-center gap-3">
+                  <span className="text-xs font-extrabold uppercase tracking-widest text-blue-100 dark:text-amber-300/80">{day.label}</span>
+                  <span className="text-white font-bold text-sm">{day.date}</span>
                 </div>
-                <ul className="space-y-1">
-                  {v.events.map(e => (
-                    <li key={e} className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-white/65">
-                      <span className="h-1.5 w-1.5 rounded-full bg-blue-400 dark:bg-amber-400 shrink-0" />
-                      {e}
-                    </li>
+
+                {/* Events */}
+                <div className="divide-y divide-slate-100 dark:divide-white/5">
+                  {day.events.map((ev, i) => (
+                    <div key={i} className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-6 p-4 sm:p-5">
+                      {/* Time column */}
+                      <div className="sm:w-44 shrink-0">
+                        <p className="text-xs font-semibold text-blue-600 dark:text-amber-300 uppercase tracking-wide">{ev.time}</p>
+                      </div>
+                      {/* Event info */}
+                      <div className="flex-1 min-w-0">
+                        <p className="font-bold text-slate-900 dark:text-white text-sm leading-snug">{ev.title}</p>
+                        <p className="text-slate-500 dark:text-white/55 text-xs mt-0.5">{ev.venue}</p>
+                        <p className="text-slate-400 dark:text-white/40 text-xs mt-0.5">{ev.address}</p>
+                      </div>
+                      {/* Directions */}
+                      <div className="sm:self-center shrink-0">
+                        <a href={ev.mapsUrl} target="_blank" rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-amber-300 hover:underline transition-colors">
+                          <MapPin className="h-3 w-3 shrink-0" /> Directions →
+                        </a>
+                      </div>
+                    </div>
                   ))}
-                </ul>
-                <a href={v.mapsUrl} target="_blank" rel="noopener noreferrer"
-                  className="mt-auto inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-amber-300 hover:underline transition-colors">
-                  <MapPin className="h-3 w-3 shrink-0" /> Get Directions →
-                </a>
+                </div>
               </div>
             ))}
           </div>
