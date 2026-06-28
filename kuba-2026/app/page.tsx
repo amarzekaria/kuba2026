@@ -213,9 +213,9 @@ export default function KubaMemphisSite() {
         <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 dark:from-amber-400 dark:via-orange-400 dark:to-amber-400 text-white dark:text-blue-950">
           <div className="max-w-6xl mx-auto px-4 py-2.5 text-center">
             <p className="text-sm font-extrabold uppercase tracking-widest">
-              {days === 0
+              {days === 0 && now.toDateString() === new Date("2026-06-29T00:00:00-05:00").toDateString()
                 ? "Tonight is the night — KUBA 2026 opens today in Memphis!"
-                : days === 1
+                : days <= 1
                 ? "Tomorrow it begins — KUBA 2026 opens in Memphis!"
                 : `${days} days to go — KUBA 2026 · Memphis · June 29`}
             </p>
