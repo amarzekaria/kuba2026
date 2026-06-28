@@ -717,13 +717,6 @@ export default function KubaMemphisSite() {
               </li>
             </ul>
           </div>
-          <div>
-            <p className="font-semibold text-slate-900 dark:text-white mb-3">Accessibility &amp; Conduct</p>
-            <ul className="grid gap-2 text-slate-500 dark:text-white/55">
-              <li>Accessible seating &amp; family rooms planned</li>
-              <li>Zero-tolerance harassment policy</li>
-            </ul>
-          </div>
         </div>
       </footer>
     </div>
