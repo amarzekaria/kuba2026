@@ -26,7 +26,7 @@ function isFestivalLive(now: Date) {
   return now >= start && now < end;
 }
 
-const COUNTDOWN_TARGET = new Date("2026-06-29T00:00:00-05:00");
+const COUNTDOWN_TARGET = new Date("2026-06-29T12:00:00-05:00");
 
 function useCountdown(target: Date) {
   const [now, setNow] = useState<Date>(new Date());
@@ -353,7 +353,7 @@ export default function KubaMemphisSite() {
                 : days <= 7
                 ? "bg-amber-500 text-white border-amber-400 animate-pulse"
                 : "bg-blue-100 text-blue-700 border-blue-300 dark:bg-amber-400/15 dark:text-amber-200 dark:border-amber-300/35"}`}>
-              {liveNow ? "LIVE NOW" : days <= 7 ? `${days} Days Away` : "Coming Soon"}
+              {liveNow ? "LIVE NOW" : (days === 0 && (hours > 0 || minutes > 0 || seconds > 0)) ? "Tomorrow!" : days <= 7 ? `${days} Days Away` : "Coming Soon"}
             </Badge>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
