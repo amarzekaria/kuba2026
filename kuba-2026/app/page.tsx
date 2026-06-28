@@ -264,11 +264,6 @@ export default function KubaMemphisSite() {
                 <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-blue-600 dark:bg-amber-400 rounded-full group-hover:w-full transition-all duration-200" />
               </a>
             ))}
-            <NavLink href="/vendor"
-              className="text-sm font-semibold text-amber-600 hover:text-amber-700 dark:text-amber-300 dark:hover:text-amber-200 transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded px-1 py-0.5">
-              Vendors
-              <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-amber-500 rounded-full group-hover:w-full transition-all duration-200" />
-            </NavLink>
             <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-sm hidden lg:inline-flex" asChild>
               <NavLink href="#social">Get Updates</NavLink>
             </Button>
@@ -306,7 +301,7 @@ export default function KubaMemphisSite() {
               </Button>
             </div>
             <div className="flex flex-col gap-5 flex-1">
-              {[["#schedule","Schedule"],["#contact","Contact"],["/about","About KUBA"],["/travel","Map"],["/vendor","Vendor Registration"]].map(([href, label]) => (
+              {[["#schedule","Schedule"],["#contact","Contact"],["/about","About KUBA"],["/travel","Map"]].map(([href, label]) => (
                 <div key={href} className="border-b border-slate-100 dark:border-white/5 pb-4">
                   <NavLink href={href} onClick={() => setOpen(false)}
                     className="text-base font-semibold text-slate-700 hover:text-blue-600 dark:text-white/85 dark:hover:text-amber-300 transition-colors">
@@ -710,7 +705,7 @@ export default function KubaMemphisSite() {
           <div>
             <p className="font-semibold text-slate-900 dark:text-white mb-3">Quick Links</p>
             <ul className="grid gap-2">
-              {[["#schedule","Schedule"],["#contact","Contact"],["/about","About KUBA"],["/travel","Map"],["/vendor","Vendor Registration"]].map(([href, label]) => (
+              {[["#schedule","Schedule"],["#contact","Contact"],["/about","About KUBA"],["/travel","Map"]].map(([href, label]) => (
                 <li key={href}>
                   <NavLink href={href} className="hover:text-slate-900 dark:hover:text-white hover:underline transition-colors">{label}</NavLink>
                 </li>
