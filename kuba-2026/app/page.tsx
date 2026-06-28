@@ -161,9 +161,10 @@ export default function KubaMemphisSite() {
   const [igPostId2, setIgPostId2]   = useState<string | null>(null);
   const [igLoading2, setIgLoading2] = useState(true);
   const { days, hours, minutes, seconds } = useCountdown(COUNTDOWN_TARGET);
-  const now        = new Date();
-  const festivalDay = getFestivalDay(now);
-  const liveNow    = isFestivalLive(now) || (days === 0 && hours === 0 && minutes === 0 && seconds === 0);
+  const now           = new Date();
+  const festivalDay   = getFestivalDay(now);
+  const countdownDone = days === 0 && hours === 0 && minutes === 0 && seconds === 0;
+  const liveNow       = isFestivalLive(now) || countdownDone;
 
   const DONATE_URL  = "https://checkout.square.site/merchant/MLZ656EDF17D3/checkout/IHXYUZ75LWCKBIOPBYCSWNMF";
   const handleDonate = () => window.open(DONATE_URL, "_blank", "noopener,noreferrer");
@@ -209,12 +210,17 @@ export default function KubaMemphisSite() {
     <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-gradient-to-b dark:from-blue-950 dark:via-[#060d1f] dark:to-black dark:text-zinc-50">
 
       {/* ══ ANNOUNCEMENT STRIP ══ */}
-      {!liveNow && days <= 10 && (
-        <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 dark:from-amber-400 dark:via-orange-400 dark:to-amber-400 text-white dark:text-blue-950">
+      {(countdownDone || days <= 10) && (
+        <div className={`bg-gradient-to-r ${countdownDone
+          ? "from-red-600 via-red-500 to-red-600"
+          : "from-amber-500 via-orange-500 to-amber-500 dark:from-amber-400 dark:via-orange-400 dark:to-amber-400"
+        } text-white dark:text-blue-950`}>
           <div className="max-w-6xl mx-auto px-4 py-2.5 text-center">
             <p className="text-sm font-extrabold uppercase tracking-widest">
-              {days === 0 && now.toDateString() === new Date("2026-06-29T00:00:00-05:00").toDateString()
-                ? "Tonight is the night — KUBA 2026 opens today in Memphis!"
+              {countdownDone
+                ? "LIVE NOW — KUBA 2026 is happening in Memphis!"
+                : (days === 0 && hours < 12)
+                ? "Today's the day — KUBA 2026 kicks off in Memphis!"
                 : days <= 1
                 ? "Tomorrow it begins — KUBA 2026 opens in Memphis!"
                 : `${days} days to go — KUBA 2026 · Memphis · June 29`}
