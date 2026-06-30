@@ -21,7 +21,7 @@ const DAYS = [
     date: "Tue · Jun 30",
     events: [
       { time: "11:30 AM – 7:00 PM", title: "Basketball Round 1", venue: "Basketball Venue",  address: "995 Early Maxwell Blvd, Memphis, TN 38104", mapsUrl: "https://maps.google.com/?q=995+Early+Maxwell+Blvd+Memphis+TN+38104" },
-      { time: "8:00 PM – 2:00 AM",  title: "Mawlud",             venue: "Mawlud Venue",       address: "3570 Davieshire Dr, Bartlett, TN 38133",  mapsUrl: "https://maps.google.com/?q=3570+Davieshire+Dr+Bartlett+TN+38133" },
+      { time: "8:00 PM – 11:30 PM", title: "Mawlud",             venue: "Mawlud Venue",       address: "3570 Davieshire Dr, Bartlett, TN 38133",  mapsUrl: "https://maps.google.com/?q=3570+Davieshire+Dr+Bartlett+TN+38133" },
     ],
   },
   {

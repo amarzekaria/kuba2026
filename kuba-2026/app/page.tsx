@@ -129,7 +129,7 @@ const SCHEDULE = [
   ]},
   { key: "day2", date: "Tue · Jun 30", items: [
     { time: "11:30 AM – 7:00 PM", title: "Basketball Round 1", icon: DribbbleIcon, address: "995 Early Maxwell Blvd, Memphis, TN 38104" },
-    { time: "8:00 PM – 2:00 AM", title: "Mawlud",                          icon: Star,         address: "3570 Davieshire Dr, Bartlett, TN 38133" },
+    { time: "8:00 PM – 11:30 PM", title: "Mawlud",                          icon: Star,         address: "3570 Davieshire Dr, Bartlett, TN 38133" },
   ]},
   { key: "day3", date: "Wed · Jul 1", items: [
     { time: "12:00 PM – 8:00 PM", title: "Harari Day Ceremony", icon: HeartHandshake, address: "1800 Berryhill Rd, Cordova, TN 38016" },
