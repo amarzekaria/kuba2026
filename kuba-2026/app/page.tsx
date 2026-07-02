@@ -136,7 +136,7 @@ const SCHEDULE = [
   ]},
   { key: "day4", date: "Thu · Jul 2", items: [
     { time: "10:00 AM - 1:00 PM", title: "Soccer Semifinals", icon: Footprints,      address: "4223 Macon Rd, Memphis, TN 38122" },
-    { time: "2:00 PM - Sunset", title: "Ziwariqa",          icon: UtensilsCrossed, address: "6903 Great View Dr N, Memphis, TN 38134" },
+    { time: "1:00 PM - Sunset", title: "Ziwariqa",          icon: UtensilsCrossed, address: "6903 Great View Dr N, Memphis, TN 38134" },
     { time: "9:15 PM - 11:00 PM",  title: "Soccer Finals",     icon: Footprints,      address: "2440 Central Ave, Memphis, TN 38104" },
   ]},
   { key: "day5", date: "Fri · Jul 3", items: [
