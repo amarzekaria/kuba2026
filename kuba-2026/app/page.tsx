@@ -26,7 +26,7 @@ function isFestivalLive(now: Date) {
   return now >= start && now < end;
 }
 
-const COUNTDOWN_TARGET = new Date("2026-06-29T00:00:00-05:00");
+const COUNTDOWN_TARGET = new Date("2026-06-29T12:00:00-05:00");
 
 function useCountdown(target: Date) {
   const [now, setNow] = useState<Date>(new Date());
@@ -129,15 +129,15 @@ const SCHEDULE = [
   ]},
   { key: "day2", date: "Tue · Jun 30", items: [
     { time: "11:30 AM – 7:00 PM", title: "Basketball Round 1", icon: DribbbleIcon, address: "995 Early Maxwell Blvd, Memphis, TN 38104" },
-    { time: "8:00 PM – 2:00 AM", title: "Mawlud",                          icon: Star,         address: "3570 Davieshire Dr, Bartlett, TN 38133" },
+    { time: "8:00 PM – 11:30 PM", title: "Mawlud",                          icon: Star,         address: "3570 Davieshire Dr, Bartlett, TN 38133" },
   ]},
   { key: "day3", date: "Wed · Jul 1", items: [
     { time: "12:00 PM – 8:00 PM", title: "Harari Day Ceremony", icon: HeartHandshake, address: "1800 Berryhill Rd, Cordova, TN 38016" },
   ]},
   { key: "day4", date: "Thu · Jul 2", items: [
     { time: "10:00 AM - 1:00 PM", title: "Soccer Semifinals", icon: Footprints,      address: "4223 Macon Rd, Memphis, TN 38122" },
-    { time: "12:00 PM - Sunset", title: "Ziwariqa",          icon: UtensilsCrossed, address: "1800 Berryhill Rd, Cordova, TN 38016" },
-    { time: "9:15 PM - 11:00 PM",  title: "Soccer Finals",     icon: Footprints,      address: "650 E Pkwy S, Memphis, TN 38104" },
+    { time: "1:00 PM - Sunset", title: "Ziwariqa",          icon: UtensilsCrossed, address: "6903 Great View Dr N, Memphis, TN 38134" },
+    { time: "9:15 PM - 11:00 PM",  title: "Soccer Finals",     icon: Footprints,      address: "2440 Central Ave, Memphis, TN 38104" },
   ]},
   { key: "day5", date: "Fri · Jul 3", items: [
     { time: "1:00 PM - 5:00 PM",            title: "Mix & Mingle",  icon: HeartHandshake, address: "901 Cordova Station Ave, Cordova, TN 38018" },
@@ -161,9 +161,10 @@ export default function KubaMemphisSite() {
   const [igPostId2, setIgPostId2]   = useState<string | null>(null);
   const [igLoading2, setIgLoading2] = useState(true);
   const { days, hours, minutes, seconds } = useCountdown(COUNTDOWN_TARGET);
-  const now        = new Date();
-  const festivalDay = getFestivalDay(now);
-  const liveNow    = isFestivalLive(now) || (days === 0 && hours === 0 && minutes === 0 && seconds === 0);
+  const now           = new Date();
+  const festivalDay   = getFestivalDay(now);
+  const countdownDone = days === 0 && hours === 0 && minutes === 0 && seconds === 0;
+  const liveNow       = isFestivalLive(now) || countdownDone;
 
   const DONATE_URL  = "https://checkout.square.site/merchant/MLZ656EDF17D3/checkout/IHXYUZ75LWCKBIOPBYCSWNMF";
   const handleDonate = () => window.open(DONATE_URL, "_blank", "noopener,noreferrer");
@@ -209,13 +210,18 @@ export default function KubaMemphisSite() {
     <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-gradient-to-b dark:from-blue-950 dark:via-[#060d1f] dark:to-black dark:text-zinc-50">
 
       {/* ══ ANNOUNCEMENT STRIP ══ */}
-      {!liveNow && days <= 10 && (
-        <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 dark:from-amber-400 dark:via-orange-400 dark:to-amber-400 text-white dark:text-blue-950">
+      {(countdownDone || days <= 10) && (
+        <div className={`bg-gradient-to-r ${countdownDone
+          ? "from-red-600 via-red-500 to-red-600"
+          : "from-amber-500 via-orange-500 to-amber-500 dark:from-amber-400 dark:via-orange-400 dark:to-amber-400"
+        } text-white dark:text-blue-950`}>
           <div className="max-w-6xl mx-auto px-4 py-2.5 text-center">
             <p className="text-sm font-extrabold uppercase tracking-widest">
-              {days === 0
-                ? "Tonight is the night — KUBA 2026 opens today in Memphis!"
-                : days === 1
+              {countdownDone
+                ? "LIVE NOW — KUBA 2026 is happening in Memphis!"
+                : (days === 0 && hours < 12)
+                ? "Today's the day — KUBA 2026 kicks off in Memphis!"
+                : days <= 1
                 ? "Tomorrow it begins — KUBA 2026 opens in Memphis!"
                 : `${days} days to go — KUBA 2026 · Memphis · June 29`}
             </p>
@@ -258,17 +264,6 @@ export default function KubaMemphisSite() {
                 <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-blue-600 dark:bg-amber-400 rounded-full group-hover:w-full transition-all duration-200" />
               </a>
             ))}
-            <NavLink href="/vendor"
-              className="text-sm font-semibold text-amber-600 hover:text-amber-700 dark:text-amber-300 dark:hover:text-amber-200 transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded px-1 py-0.5">
-              Vendors
-              <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-amber-500 rounded-full group-hover:w-full transition-all duration-200" />
-            </NavLink>
-            <div className="hidden lg:flex flex-col items-center gap-0.5">
-              <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-sm" asChild>
-                <a href="/register">Free Agent Registration</a>
-              </Button>
-              <p className="text-[10px] font-semibold text-slate-400 dark:text-white/40">Team reg closed</p>
-            </div>
             <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-sm hidden lg:inline-flex" asChild>
               <NavLink href="#social">Get Updates</NavLink>
             </Button>
@@ -306,15 +301,12 @@ export default function KubaMemphisSite() {
               </Button>
             </div>
             <div className="flex flex-col gap-5 flex-1">
-              {[["#schedule","Schedule"],["#contact","Contact"],["/about","About KUBA"],["/travel","Map"],["/register","Free Agent Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
+              {[["#schedule","Schedule"],["#contact","Contact"],["/about","About KUBA"],["/travel","Map"]].map(([href, label]) => (
                 <div key={href} className="border-b border-slate-100 dark:border-white/5 pb-4">
                   <NavLink href={href} onClick={() => setOpen(false)}
                     className="text-base font-semibold text-slate-700 hover:text-blue-600 dark:text-white/85 dark:hover:text-amber-300 transition-colors">
                     {label}
                   </NavLink>
-                  {href === "/register" && (
-                    <p className="mt-1 text-xs font-semibold text-slate-400 dark:text-white/40">Team reg closed</p>
-                  )}
                 </div>
               ))}
               <button onClick={toggleTheme}
@@ -353,7 +345,7 @@ export default function KubaMemphisSite() {
                 : days <= 7
                 ? "bg-amber-500 text-white border-amber-400 animate-pulse"
                 : "bg-blue-100 text-blue-700 border-blue-300 dark:bg-amber-400/15 dark:text-amber-200 dark:border-amber-300/35"}`}>
-              {liveNow ? "LIVE NOW" : days <= 7 ? `${days} Days Away` : "Coming Soon"}
+              {liveNow ? "LIVE NOW" : (days === 0 && (hours > 0 || minutes > 0 || seconds > 0)) ? "Tomorrow!" : days <= 7 ? `${days} Days Away` : "Coming Soon"}
             </Badge>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
@@ -713,7 +705,7 @@ export default function KubaMemphisSite() {
           <div>
             <p className="font-semibold text-slate-900 dark:text-white mb-3">Quick Links</p>
             <ul className="grid gap-2">
-              {[["#schedule","Schedule"],["#contact","Contact"],["/about","About KUBA"],["/travel","Map"],["/register","Free Agent Registration"],["/vendor","Vendor Registration"]].map(([href, label]) => (
+              {[["#schedule","Schedule"],["#contact","Contact"],["/about","About KUBA"],["/travel","Map"]].map(([href, label]) => (
                 <li key={href}>
                   <NavLink href={href} className="hover:text-slate-900 dark:hover:text-white hover:underline transition-colors">{label}</NavLink>
                 </li>
@@ -723,13 +715,6 @@ export default function KubaMemphisSite() {
                   Donate
                 </button>
               </li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold text-slate-900 dark:text-white mb-3">Accessibility &amp; Conduct</p>
-            <ul className="grid gap-2 text-slate-500 dark:text-white/55">
-              <li>Accessible seating &amp; family rooms planned</li>
-              <li>Zero-tolerance harassment policy</li>
             </ul>
           </div>
         </div>
