@@ -47,8 +47,8 @@ const DAYS = [
     label: "Day 5",
     date: "Fri · Jul 3",
     events: [
-      { time: "1:00 PM – 5:00 PM", title: "Mix & Mingle", venue: "The Esplanade", address: "901 The Esplanade Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
-      { time: "8:00 PM – 2:00 AM", title: "Family Night", venue: "The Esplanade", address: "901 The Esplanade Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+      { time: "1:00 PM – 5:00 PM", title: "Mix & Mingle", venue: "The Esplanade", address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+      { time: "8:00 PM – 2:00 AM", title: "Family Night", venue: "The Esplanade", address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
     ],
   },
   {
@@ -57,8 +57,8 @@ const DAYS = [
     date: "Sat · Jul 4",
     events: [
       { time: "11:30 AM – 6:00 PM", title: "Basketball Finals", venue: "Cordova High", address: "1800 Berryhill Rd, Cordova, TN 38016",      mapsUrl: "https://maps.google.com/?q=1800+Berryhill+Rd+Cordova+TN+38016" },
-      { time: "1:00 PM – 3:00 PM",  title: "Town Hall",         venue: "The Esplanade",          address: "901 The Esplanade Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
-      { time: "8:00 PM – 2:00 AM",  title: "Gala Night",        venue: "The Esplanade",          address: "901 The Esplanade Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+      { time: "1:00 PM – 3:00 PM",  title: "Town Hall",         venue: "The Esplanade",          address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
+      { time: "8:00 PM – 2:00 AM",  title: "Gala Night",        venue: "The Esplanade",          address: "901 Cordova Station Ave, Cordova, TN 38018", mapsUrl: "https://maps.google.com/?q=901+Cordova+Station+Ave+Cordova+TN+38018" },
     ],
   },
 ];
